@@ -1,6 +1,6 @@
 <?php 
 
-class Rumah_model extends CI_Model {
+class rumah_model extends CI_Model {
     public function tampil_data()
     {
         return $this->db->get('tb_produk');
@@ -27,5 +27,25 @@ class Rumah_model extends CI_Model {
     public function detail_data($id = NULL){
         $query = $this->db->get_where('tb_produk', array('id' => $id))->row();
         return $query;
+    }
+
+    public function tambah_rumah1(){
+        $arrDataIdPackage	= $this->db->query("SELECT MAX(id) AS id
+												FROM tb_produk
+												LIMIT 1")->result_array();
+		return $arrDataIdPackage;
+    }
+
+    public function insertRumah($param)
+     {
+        $this->db->trans_begin();
+        $this->db->insert("tb_produk", $param);
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return "Gagal";
+        } else {
+            $this->db->trans_commit();
+            return "Berhasil";
+        }
     }
 }

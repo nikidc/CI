@@ -31,7 +31,7 @@
                 <td><?php echo $no++ ?></td>
                 <td><?php echo $rm->nama ?></td>
                 <td><?php $angka = $rm->biaya;
-                            $hasil_format_angka = number_format($angka);
+                            $hasil_format_angka = number_format($angka,2,',','.');
                             echo $hasil_format_angka; ?></td>
                 <td><?php echo $rm->alamat ?></td>
                 <td><?php echo $rm->luas ?></td>
@@ -63,11 +63,11 @@
 
         <!-- FORM TAMBAH-->
         <div class="modal-body">
-            <?php echo form_open_multipart('rumah/tambah_rumah'); ?>
+            <!-- <php echo form_open_multipart('rumah/tambah_rumah'); ?> -->
         
             <div class="form-group">
                 <label >Nama</label>
-                <input type="text" name ="nama" class="form-control">
+                <input type="text" id = "nama_rumah" name ="nama" class="form-control">
             </div>
 
             <div class="form-group">
@@ -106,23 +106,33 @@
 
             <div class="form-group">
                 <label >alamat</label>
-                <input type="text" name ="alamat" class="form-control">
+                <input type="text" id="alamat_rumah" name ="alamat" class="form-control">
             </div>
 
             <div class="form-group">
                 <label >Luas (m2)</label>
-                <input type="text" name ="luas" class="form-control">
+                <input type="text" id="luas_rumah" name ="luas" class="form-control">
             </div>
 
             <div class="form-group">
                 <label >Upload Foto</label>
-                <input type="file" name ="foto" class="form-control">
+                <input type="file" id ="foto1" class="form-control" accept="image/jpeg, image/png, image/jpg">
+            </div>
+
+            <div class="form-group">
+                <label >Upload Foto</label>
+                <input type="file" id ="foto2" class="form-control" accept="image/jpeg, image/png, image/jpg">
+            </div>
+
+            <div class="form-group">
+                <label >Upload Foto</label>
+                <input type="file" id ="foto3" class="form-control" accept="image/jpeg, image/png, image/jpg">
             </div>
 
             <button type="reset" class="btn btn-danger" data-dismiss="modal">Reset</button>
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="submit" class="btn btn-primary" onclick="tambahrumah();">Simpan</button>
 
-            <?php echo form_close(); ?>
+            <!-- <php echo form_close(); ?> -->
         </div>
         <div class="modal-footer">
             
