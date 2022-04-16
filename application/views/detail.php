@@ -30,8 +30,16 @@
 
             <tr>
                 <td>
-                    <img src="<?php echo base_url(); ?>foto/<?php echo $detail->foto; ?>" 
-                    widht = "90" height="110">
+                    <img src="<?php echo base_url(); ?>foto/<?php echo $detail->foto1; ?>" 
+                    width = "150" height="110">
+                </td>
+                <td>
+                    <img src="<?php echo base_url(); ?>foto/<?php echo $detail->foto2; ?>" 
+                    width = "150" height="110">
+                </td>
+                <td>
+                    <img src="<?php echo base_url(); ?>foto/<?php echo $detail->foto3; ?>" 
+                    width = "150" height="110">
                 </td>
                 <td></td>
 

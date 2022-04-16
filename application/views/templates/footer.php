@@ -239,3 +239,73 @@
 <script src="<?php echo base_url() ?>assets/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url() ?>assets/dist/js/demo.js"></script>
+<!-- Multi image -->
+<script src="<?php echo base_url() ?>assets/plugins/multi-image-uploader-bootstrap/jquery.imagesloader-1.0.1.js"></script>
+
+
+<script type="text/javascript">
+  $(function(){
+
+  });
+</script>
+
+<script type="text/javascript">
+  function tambahrumah() {
+    var form_data = new FormData();
+        var length1 = $("#foto1").get(0).files.length;
+        var length2 = $("#foto2").get(0).files.length;
+        var length3 = $("#foto3").get(0).files.length;
+        var lengthAll = length1 + length2 + length3;
+
+        var nama_rumah       = $("#nama_rumah").val();
+        var biaya            = $("#inputAngka").val();
+        var alamat_rumah     = $("#alamat_rumah").val();
+        var luas_rumah       = $("#luas_rumah").val();
+
+        form_data.append("nama_rumah", nama_rumah);
+        form_data.append("biaya", biaya);
+        form_data.append("alamat_rumah", alamat_rumah);
+        form_data.append("luas_rumah", luas_rumah);
+        form_data.append("jumlah_foto", lengthAll);
+
+        if (lengthAll == 0) {
+          alert("Gambar kosong");
+        } else {
+          // gambar > 1
+          for (let i = 1; i < 4; i++) {
+            var id    = "#foto"+i;
+            var file  = "file"+i;
+            var length = $(id).get(0).files.length;
+            if (length != 0) {
+              form_data.append(file, $(id)[0].files[0]);
+            }
+          }
+          
+         /*  for (var value of form_data.values()) {
+            console.log(value);
+            
+          } */
+
+          $.ajax({
+            type: "POST",
+            url: "<?php echo base_url(); ?>rumah/tambah_rumah1",
+            contentType: false,
+            processData: false,
+            dataType: "TEXT",
+            data: form_data,
+            success: function(response) {
+              if (jQuery.trim(response) === "Berhasil") {
+                        alert("Foto Profil Berhasil Diubah!!!");
+                        location.reload();
+                    } else {
+                        alert("Foto Profil Gagal Diubah!!!");
+                    }
+            },
+            error: function(response) {
+              var msg = "Server Fault Error Code ( " + response.status + " ) ";
+              alert(msg);
+            }
+          });
+        }
+  }
+</script>

@@ -33,7 +33,7 @@
           </a>
         </li>
         <li class="active treeview">
-          <a href="<?php echo base_url().'dashboard.php';?>">
+          <a href="#">
             <i class="fa fa-home"></i> <span>Rumah</span>        
           </a>        
         </li>
