@@ -11,8 +11,16 @@
       </ol>
     </section>
 
+
+
     <section class="content">
         <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i> Tambah Data Rumah</button>
+        <div class="navbar-form navbar-right">
+            <?php echo form_open('rumah/search') ?>
+            <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Search">
+            <button type="submit" class="btn btn-success">Cari</button>
+            <?php echo form_close() ?>
+        </div>
         <table class="table">
             <tr>
                 <th>No</th>

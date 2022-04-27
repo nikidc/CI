@@ -48,4 +48,15 @@ class rumah_model extends CI_Model {
             return "Berhasil";
         }
     }
+
+    public function get_keyword($keyword){
+        $this->db->select('*');
+        $this->db->from('tb_produk');
+        $this->db->like('nama', $keyword);
+        $this->db->or_like('biaya', $keyword);
+        $this->db->or_like('alamat', $keyword);
+        $this->db->or_like('luas', $keyword);
+        return $this->db->get()->result();
+
+    }
 }
