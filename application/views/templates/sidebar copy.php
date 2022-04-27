@@ -27,13 +27,13 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="nav-link">
-          <a href="<?php echo base_url(); ?>rumah/dashboard">
+        <li class="active treeview">
+          <a href="#">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-        <li class="nav-link">
-          <a href="<?php echo base_url(); ?>rumah/rumah">
+        <li class="active treeview">
+          <a href="#">
             <i class="fa fa-home"></i> <span>Rumah</span>        
           </a>        
         </li>

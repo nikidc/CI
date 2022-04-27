@@ -8,12 +8,28 @@ class Rumah extends CI_Controller {
     }
 
     public function index() {
+        /* $data['rumah'] = $this->rumah_model->tampil_data()->result();
+        $this->load->view('templates/header');
+		$this->load->view('templates/sidebar');
+		$this->load->view('dashboard', $data);
+		$this->load->view('templates/footer'); */
+        $this->dashboard();
+    }
+    public function dashboard() {
         $data['rumah'] = $this->rumah_model->tampil_data()->result();
         $this->load->view('templates/header');
 		$this->load->view('templates/sidebar');
-		$this->load->view('rumah', $data);
+		$this->load->view('dashboard', $data);
 		$this->load->view('templates/footer');
     }
+    public function rumah()
+	{
+		$data['rumah'] = $this->rumah_model->tampil_data()->result();
+		$this->load->view('templates/header');
+		$this->load->view('templates/sidebar');
+		$this->load->view('rumah', $data);
+		$this->load->view('templates/footer');
+	}
 
     public function tambah(){
         $this->load->view('templates/header');
@@ -164,6 +180,26 @@ class Rumah extends CI_Controller {
             echo "Foto gagal di upload";
         }
 
+    }
+
+    public function search(){
+        $keyword = $this->input->post('keyword');
+        $data['rumah']=$this->rumah_model->get_keyword($keyword);
+
+        $this->load->view('templates/header');
+		$this->load->view('templates/sidebar');
+		$this->load->view('rumah', $data);
+		$this->load->view('templates/footer');
+    }
+
+    public function search1(){
+        $keyword = $this->input->post('keyword');
+        $data['rumah']=$this->rumah_model->get_keyword($keyword);
+
+        $this->load->view('templates/header');
+		$this->load->view('templates/sidebar');
+		$this->load->view('dashboard', $data);
+		$this->load->view('templates/footer');
     }
 } 
 ?>

@@ -4,12 +4,18 @@
         Dashboard
         <small>Daftar Rumah</small>
       </h1>
+      
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Daftar Rumah</li>
       </ol>
-     
-     
+      <div class="navbar-form">
+            <?php echo form_open('rumah/search1') ?>
+            <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Search">
+            <button type="submit" class="btn btn-success">Cari</button>
+            <?php echo form_close() ?>
+        </div>
+     <br>
  <div class="container-fluid" >
     <div class="row text-center">
     <?php foreach ($rumah as $rm) :?>
