@@ -30,20 +30,20 @@
 <body class="hold-transition register-page">
 <div class="register-box">
   <div class="register-logo">
-    <a href="../../index2.html"><b>Rumah</b>Sewa</a>
+    <a href="<?php echo base_url().'register';?>"><b>Rumah</b>Sewa</a>
   </div>
 
   <div class="register-box-body">
     <p class="login-box-msg">Daftar Member Baru</p>
 
-    <?php 
+   <!--  <?php 
 				if($this->session->flashdata('error') !='')
 				{
 					echo '<div class="alert alert-danger" role="alert">';
 					echo $this->session->flashdata('error');
 					echo '</div>';
 				}
-				?>
+				?> -->
     <!-- <?php 
 			if(validation_errors() != false)
 			{
@@ -57,15 +57,21 @@
 
     <form action="<?php echo base_url().'register/proses' ?>" method="post">
       <div class="form-group ">
-        <input type="text" id="username" name="username" class="form-control" placeholder="Username">
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        <input type="text" id="username" name="username" class="form-control" placeholder="Username"
+          value="<?php echo set_value('username'); ?>">
+            <?php echo form_error('username','<small class="text-danger" pl-3>','</small>'); ?>
+          <div class="input-group-text">
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+          </div>
       </div>
       <div class="form-group ">
-        <input type="text" id="nama_l" name="nama_l" class="form-control" placeholder="Nama">
+        <input type="text" id="nama_l" name="nama_l" class="form-control" placeholder="Nama" value="<?php echo set_value('nama_l'); ?>">
+          <?php echo form_error('nama_l','<small class="text-danger" pl-3>','</small>'); ?>
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group ">
         <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+        <?php echo form_error('password','<small class="text-danger" pl-3>','</small>'); ?>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="form-group">
@@ -89,11 +95,15 @@
           </div>
         </div> -->
         <!-- /.col -->
-        <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary">Registrasi</button>
+        <div class="form-group col-4">
+          <button type="submit" class="btn btn-primary btn-block">Registrasi</button>
         </div>
+        
         <!-- /.col -->
-      </div>
+      
+      
+      <a href="<?php echo base_url(); ?>login" class="text-center">Sudah memiliki akun, klik disini</a>
+    
     </form>
 
    <!--  <div class="social-auth-links text-center">
@@ -103,8 +113,8 @@
       <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using
         Google+</a>
     </div> -->
-
-    <a href="<?php echo base_url(); ?>login" class="text-center">Sudah memiliki akun, klik disini</a>
+      
+    
   </div>
   <!-- /.form-box -->
 </div>

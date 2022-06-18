@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+<!--   <title><?php echo $data['title']; ?></title> -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -63,8 +63,24 @@
       
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-         
-        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa-solid fa-magnifying-glass"></i>coba
+            </a>
+              <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown"> -->
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item" href="#">Action</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Another action</a>
+                  </li>
+                  <li>
+                     <a class="dropdown-item" href="#">Something else here</a>
+                  </li>
+                </ul> <!-- <div class="dropdown-divider"></div> -->
+              <!-- </div> -->
+          </li>
           <!-- Notifications: style can be found in dropdown.less -->
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -110,11 +126,13 @@
             
           </li>
           <!-- Right navbar links -->
-          <!-- <ul class="navbar-nav ml-auto"> -->
+         <!--  <ul class="navbar-nav ml-auto"> -->
                 <li class="nav-item">
+                 <!--  <?php echo $this->session->userdata('nama_l') ?> -->
+                  <!-- p><?php echo $user['nama_l']; ?></p> -->
                   <a href="<?php echo base_url(); ?>login/logout" class="btn-sm btn-danger">Sign Out</a>
                 </li>
-              </ul>
+          <!-- </ul> -->
           
           <!-- User Account: style can be found in dropdown.less 
           <li class="dropdown user user-menu">
@@ -122,8 +140,8 @@
               <img src="<?php echo base_url() ?>assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <span class="hidden-xs">Alexander Pierce</span>
             </a>
-            <ul class="dropdown-menu">-->
-              <!-- User image 
+            <ul class="dropdown-menu">
+              User image 
               <li class="user-header">
                 <img src="<?php echo base_url() ?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
@@ -131,8 +149,8 @@
                   Alexander Pierce - Web Developer
                   <small>Member since Nov. 2012</small>
                 </p>
-              </li>-->
-              <!-- Menu Body 
+              </li>
+              Menu Body 
               <li class="user-body">
                 <div class="row">
                   <div class="col-xs-4 text-center">
@@ -144,9 +162,9 @@
                   <div class="col-xs-4 text-center">
                     <a href="#">Friends</a>
                   </div>
-                </div> -->
-                <!-- /.row -->
-              </li>
+                </div>
+                /*.row */
+              </li> -->
               <!-- Menu Footer
               <li class="user-footer">
                 <div class="pull-left">
@@ -154,8 +172,8 @@
                 </div>
                 <div class="pull-right">
                   <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                </div>-->
-              </li>
+                </div>
+              </li> -->
             </ul>
           </li>
           

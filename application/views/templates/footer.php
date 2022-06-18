@@ -241,7 +241,18 @@
 <script src="<?php echo base_url() ?>assets/dist/js/demo.js"></script>
 <!-- Multi image -->
 <script src="<?php echo base_url() ?>assets/plugins/multi-image-uploader-bootstrap/jquery.imagesloader-1.0.1.js"></script>
+<!-- Data Tables -->
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/dataTables/css/dataTables.bootstrap4.min.css" type="text/css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/plugins/dataTables/css/jquery.dataTables.min.css'">
+<script type="text/javascript" src="<?php echo base_url() ?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>assets/plugins/dataTables/dataTables.min.js"></script>
 
+<!-- Datatable CSS -->
+<link href='//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' rel='stylesheet' type='text/css'>
+<!-- Datatable JS -->
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
 <script type="text/javascript">
   $(function(){
@@ -257,10 +268,50 @@
         var length3 = $("#foto3").get(0).files.length;
         var lengthAll = length1 + length2 + length3;
 
+        if ($('#kamar_mandi').is(":checked")) {
+          form_data.append("kamar_mandi", "TRUE");
+        } else {
+          form_data.append("kamar_mandi", "FALSE");
+        }
+        if ($('#kasur').is(":checked")) {
+          form_data.append("kasur", "TRUE");
+        } else {
+          form_data.append("kasur", "FALSE");
+        }
+        if ($('#lemari').is(":checked")) {
+          form_data.append("lemari", "TRUE");
+        } else {
+          form_data.append("lemari", "FALSE");
+        }
+        if ($('#meja').is(":checked")) {
+          form_data.append("meja", "TRUE");
+        } else {
+          form_data.append("meja", "FALSE");
+        }
+        if ($('#ac').is(":checked")) {
+          form_data.append("ac", "TRUE");
+        } else {
+          form_data.append("ac", "FALSE");
+        }
+        /* $(function(){
+          $('#fasilitas').click(function(){
+            var val = [];
+            $(':checkbox:checked').each(function(i){
+              val[i] = $(this).val();
+            });
+          });
+        }); */
+        /* var arr = $('input[name="fasilitas"]:checked').map(function () { return this.value; }).get();
+          console.log(arr); */
+          /* var myCheckboxes = new Array();
+              $('input[name="fasilitas[]"]').each(function() {
+                data['fasilitas[]'].push($(this).val());
+              }); */
         var nama_rumah       = $("#nama_rumah").val();
         var biaya            = $("#inputAngka").val();
         var alamat_rumah     = $("#alamat_rumah").val();
         var luas_rumah       = $("#luas_rumah").val();
+        /* var fasilitas       = $("#fasilitas").val(); */
 
         form_data.append("nama_rumah", nama_rumah);
         form_data.append("biaya", biaya);
@@ -295,10 +346,10 @@
             data: form_data,
             success: function(response) {
               if (jQuery.trim(response) === "Berhasil") {
-                        alert("Foto Profil Berhasil Diubah!!!");
+                        alert("Data Berhasil Ditambah!!!");
                         location.reload();
                     } else {
-                        alert("Foto Profil Gagal Diubah!!!");
+                        alert("Data Gagal Ditambah!!!");
                     }
             },
             error: function(response) {
@@ -308,4 +359,225 @@
           });
         }
   }
+</script>
+
+<!-- Ini view footer-->
+<script>
+  $(function () {
+    if ($("#divTest").length > 0) {
+      showData("ASC");
+    }
+
+    $("#sortir").on("change", function (e) {
+    	e.preventDefault();
+    	showData($(this).val());
+    });
+  })
+</script>
+
+<script>
+  function showData(param) {
+    $.ajax({
+    	type: "POST",
+    	url: "<?php echo base_url(); ?>rumah/getData",
+    	dataType: "JSON",
+    	data: {
+    		sortir: param
+    	},
+    	success: function (response) {
+    		$("#divTest").empty();
+    		$.each(response, function (AvIndex, AvValue) {
+    			var id = AvValue.id;
+          var nama = AvValue.nama;
+          var alamat = AvValue.alamat;
+          var biaya = AvValue.biaya;               
+          var foto1 = AvValue.foto1;
+          var url = "<?php echo base_url().'/foto/' ?>";
+
+    			$("#divTest").append(
+    				"<div class='card col-lg-4 mb-3'>" +
+    /*<img src="<php echo base_url().'/foto/'.$rm->foto1 ?>" width="100" height="100" class="card-img-top " alt="..."> */
+            "<img src='" + url + foto1 + "'" + "width='100' height='100' class='card-img-top'>" +
+              "<div class='card-body'>" +
+              "<h5 class='card-title mb-1'>"+
+               nama + "</h5>" +
+              "<small>"+ alamat +"</small><br>" +
+              "<span class='badge bg-info text-dark mb-3'>" +
+              "Rp" + biaya + "</span>" + 
+              "<a class='btn btn-sm btn-primary mt-3' href="+"'pesan/"+ id + "'"+ ">Pesan Sekarang</a>" +
+              "<a class='btn btn-sm btn-success mt-3' href="+"'detail/"+ id + "'"+ ">Detail</a>" +
+    				"</div>"
+    			);
+    		});
+    	},
+    	error: function (response) {
+    		msg = "Server Fault Error Code ( " + response.status + " ) ";
+    		toastr.error(msg);
+    	}
+    });
+    }
+</script>
+
+<!-- <script>
+  function memberTables(){
+  $(document).ready(function() {
+
+            var dataTable = $('#table-member').dataTable({
+                /*"columnDefs": [
+                    {
+                        "targets": [ 4 ],
+                        "visible": false
+                    }
+                ],*/
+                "paging" : true,
+                "lengthChange" : true,
+                "searching" : true,
+                "ordering" : true,
+                "bProcessing" : true,
+                //"serverSide" : true,
+                "serverMethod" : 'post',
+                "bDestroy": true,
+                "bAutoWidth": true,
+                "sPaginationType": "full_numbers",
+                "dom": 'lBfrtip',
+                "buttons": [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ],
+                "ajax" : {
+                    url: "<?php echo base_url(); ?>/rumah/getDataMember",
+                    dataSrc: "",
+                   /*  data:{
+                        period  : param,
+                        start   : startDate,
+                        finish  : finishDate,
+                        loc     : location
+                    } */
+                },
+                /* "columns": [
+                    {
+                        "data": "barcode",
+                        "className": "text-center"
+                    },
+                    { 
+                        "data": "type",
+                        "className": "text-center"
+                    },
+                    { 
+                        "data": "colour",
+                        "className": "text-center"
+                    },
+                    { 
+                        "data": "stock",
+                        "className": "text-center",
+                        /* "render": function ( data, type, row ) {
+                            var pembanding = row.pembanding;
+                            var stock = row.stock;
+                            if(pembanding == 1){
+                                return stock;
+                            }else {
+                                return "Out of Stock"; }
+                        }
+                    },
+                ]*/
+                "order": [
+                    [3, "asc"]
+                ],
+            });
+        });
+  }
+</script> -->
+
+<!-- tabel data member -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        tampil_data_member();   //pemanggilan fungsi tampil.
+         
+        $('#tableMember').dataTable();
+          
+        //fungsi tampil 
+        function tampil_data_member(){
+            $.ajax({
+                type  : 'ajax',
+                url   : '<?php echo base_url(); ?>rumah/getDataMember',
+                async : false,
+                dataType : 'json',
+                success : function(data){
+                    var html = '';
+                    var i;
+                    for(i=0; i<data.length; i++){
+                        html += '<tr>'+
+                                '<td>'+data[i].nama_l+'</td>'+
+                                '<td>'+data[i].username+'</td>'+
+                                '<td>'+data[i].alamat_user+'</td>'+
+                                '<td>'+data[i].no_telp+'</td>'+
+                                '<td>'+data[i].role_l+'</td>'+
+                                '</tr>';
+                    }
+                    $('#show_data').html(html);
+                }
+ 
+            });
+        }
+ 
+    });
+ 
+</script>
+
+<!-- <script type="text/javascript">
+     $(document).ready(function(){
+        $('#tableMember').DataTable({
+          'processing': true,
+          'serverSide': true,
+          'serverMethod': 'post',
+          'ajax': {
+             'url':'<?=base_url()?>rumah/getDataMember'
+          },
+          'columns': [
+             { data: 'nama_l' },
+             { data: 'username' },
+             { data: 'alamat_user' },
+             { data: 'no_telp' },
+             { data: 'role_l' },
+          ]
+        });
+     });
+     </script> -->
+
+     <!-- tabel data rumah -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        tampil_data_rumah();   //pemanggilan fungsi tampil.
+         
+        $('#tableRumah').dataTable();
+          
+        //fungsi tampil 
+        function tampil_data_rumah(){
+            $.ajax({
+                type  : 'ajax',
+                url   : '<?php echo base_url(); ?>rumah/getDataRumah',
+                async : false,
+                dataType : 'json',
+                success : function(data){
+                    
+                    var html = '';
+                    var i;
+                    for(i=0; i<data.length; i++){
+                        html += '<tr>'+
+                                '<td>'+data[i].nama+'</td>'+
+                                '<td>'+data[i].biaya+'</td>'+
+                                '<td>'+data[i].alamat+'</td>'+
+                                '<td>'+data[i].luas+'</td>'+
+                                /* '<td>'+ data[i].kamar_mandi + ', ' + '</td>'+ */
+                                '<td>' + '<a class="btn btn-sm btn-success" href="detail/' + data[i].id + '">Detail</a>' + '</td>'
+                                 +
+                                '</tr>';
+                    }
+                    $('#show_data_r').html(html);
+                }
+ 
+            });
+        }
+ 
+    });
+ 
 </script>

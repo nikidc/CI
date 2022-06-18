@@ -9,6 +9,7 @@ class Login extends CI_Controller {
 
 	public function index()
 	{
+		
 		$this->session_check();
 	}
 
@@ -37,11 +38,18 @@ class Login extends CI_Controller {
 				$sessionData = array(
 					"csIdUser"     	=> $hasil['id_l'],
 					"csUsername"   	=> $hasil['username'],
+					"csName"   		=> $hasil['nama_l'],
 					"csRole"     	=> $hasil['role_l'],
-					/* "csSignInTime" 	=> date('Y-m-d H:i'), */
+					"csSignInTime" 	=> date('Y-m-d H:i'),
 				);
 				$this->session->set_userdata($sessionData);
-				$this->session_check();
+
+				if($hasil['role_l'] == 'pemilik'){
+					redirect('rumah/rumah');
+				} else{
+					$this->session_check();
+				}
+				
 			} else {
 				echo "<script>alert('Nama pengguna atau Sandi salah!');</script>";
 				echo "<script>document.location='./'</script>";
@@ -56,6 +64,11 @@ class Login extends CI_Controller {
 		$this->session->unset_userdata("csRole");
 		$this->session->sess_destroy();
 		echo "<script>document.location='./'</script>";
+	}
+
+	public function blocked(){
+		
+		$this->load->view('templates/blocked');
 	}
 
 }
