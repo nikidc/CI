@@ -6,15 +6,15 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="<?php echo base_url() ?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="<?php echo base_url('assets/foto_profil/').$user['foto_profil'] ?>" class="img-circle elevation-2">
         </div>
         <div class="pull-left info">
-          <p>USER</p>
+          <p><?= strtoupper($user['nama_l']); ?></p>
 
         </div>
       </div>
       <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
+      <!-- <form action="#" method="get" class="sidebar-form">
         <div class="input-group">
           <input type="text" name="q" class="form-control" placeholder="Search...">
           <span class="input-group-btn">
@@ -22,12 +22,36 @@
                 </button>
               </span>
         </div>
-      </form>
+      </form> -->
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
+        <!-- Query Menu -->
+        <?php 
+        $role_id = $this->session->userdata('csRole');
+        $queryMenu = "SELECT *
+                        FROM `user_menu` JOIN `user_access_menu` 
+                         ON `user_menu`.`id` = `user_access_menu`.`menu_id`
+                       WHERE `user_access_menu`.`role_l` = '$role_id'
+                      ORDER BY `user_access_menu`.`menu_id` ASC
+                       ";
+
+                       $menu = $this->db->query($queryMenu)->result_array();
+        ?>
+        <!-- Looping Menu -->
+        <?php foreach ($menu as $m) : ?>
         <li class="nav-link">
+          <a href="<?php echo base_url($m['url']); ?>">
+            <i class="<?php echo $m['icon']; ?>"></i> 
+            <span><?php echo $m['title']; ?></span>
+          </a>
+        </li>
+
+
+          <?php endforeach; ?>  
+
+        <!-- <li class="nav-link">
           <a href="<?php echo base_url(); ?>rumah/dashboard">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
@@ -39,21 +63,19 @@
         </li>
         <li class="active treeview">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Inbox</span>          
+            <i class="fa fa-inbox"></i> <span>Inbox</span>          
           </a>         
         </li>
-        <li class="active treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Setting</span>           
+        <li class="nav-link">
+          <a href="<?php echo base_url(); ?>rumah/setting">
+            <i class="fa fa-gear"></i> <span>Setting</span>           
           </a>
-        </li>
-        <li class="active treeview">
-          <a href="#">
+        </li> -->
+        <li class="nav-link">
+          <a href="<?php echo base_url(); ?>login/logout">
             <i class="fa fa-sign-out"></i> <span>Logout</span>           
           </a>
         </li>
-
-       
       </ul>
     </section>
     <!-- /.sidebar -->

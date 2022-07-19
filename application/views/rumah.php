@@ -1,3 +1,4 @@
+<title>Rumah</title>
 <!-- main content -->
 <div class="content-wrapper">
 <section class="content-header">
@@ -6,7 +7,7 @@
         <small>Daftar Rumah</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"> Home</a></li>
+        <li><a href="<?php echo base_url(); ?>rumah/index">Home</a></li>
         <li class="active">Daftar Rumah</li>
       </ol>
     </section>
@@ -28,37 +29,79 @@
                 <th>Biaya</th>
                 <th>Alamat</th>
                 <th>Luas (m2)</th>
+                <th>Fasilitas</th>
                 <th colspan="2">AKSI</th>
         
             </tr>
-            <?php 
+             <!-- Query Rumah -->
+               <?php 
+                $user_id = $this->session->userdata('csIdUser');
+                $queryRumah = "SELECT *
+                                FROM `tb_produk` JOIN `login` 
+                                  ON `tb_produk`.`user_id` = `login`.`id_l`
+                               WHERE `tb_produk`.`user_id` = '$user_id'
+                            /* ORDER BY `user_access_menu`.`menu_id` ASC */
+                                ";
 
-            $no =1;
+                                $rumah = $this->db->query($queryRumah)->result_array();
+                                /* var_dump($rumah);
+                                die; */
+                    ?> 
+            <?php  
+
+            $no = 1;
             foreach ($rumah as $rm):?>
             <tr>
                 <td><?php echo $no++ ?></td>
-                <td><?php echo $rm->nama ?></td>
-                <td><?php $angka = $rm->biaya;
+                <td><?php echo $rm['nama']; ?></td>
+                <td><?php $angka = $rm['biaya'];
                             $hasil_format_angka = number_format($angka,2,',','.');
                             echo $hasil_format_angka; ?></td>
-                <td><?php echo $rm->alamat ?></td>
-                <td><?php echo $rm->luas ?></td>
-                <td><?php echo anchor('rumah/detail/'.$rm->id,
+                <td><?php echo $rm['alamat']; ?></td>
+                <td><?php echo $rm['luas']; ?></td>
+                <td><?php $km=$rm['kamar_mandi'];
+                          $kas=$rm['kasur'];
+                          $lem=$rm['lemari'];
+                          $meja=$rm['meja'];
+                          $ac=$rm['ac'];
+                            if($km=="TRUE"){
+                                echo "Kamar Mandi, ";
+                            }else{
+                                echo "";
+                            }
+                            if($kas=="TRUE"){
+                                echo "Kasur, ";
+                            }else{
+                                echo "";
+                            }
+                            if($lem=="TRUE"){
+                                echo "Lemari, ";
+                            }else{
+                                echo "";
+                            }
+                            if($meja=="TRUE"){
+                                echo "Meja, ";
+                            }else{
+                                echo "";
+                            }
+                            if($ac=="TRUE"){
+                                echo "AC";
+                            }else{
+                                echo "";
+                            } ?></td>
+                <td><?php echo anchor('rumah/detail/'.$rm['id'],
                     '<div class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i></div>')?></td>
                 <td onclick="javascript: return confirm('Anda yakin ingin menghapus?') ">
-                    <?php echo anchor('rumah/hapus/'.$rm->id,
+                    <?php echo anchor('rumah/hapus/'.$rm['id'],
                      '<div class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></div>') ?>
                     </td>
-                <td><?php echo anchor('rumah/edit/'.$rm->id,'<div class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></div>') ?>
+                <td><?php echo anchor('rumah/edit/'.$rm['id'],'<div class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></div>') ?>
             </td>
             </tr>
-            
             <?php endforeach; ?>
         </table>
 
-    </section>
-    <!-- MODAL -->
-  
+    </section>  
 
 <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -71,11 +114,12 @@
 
         <!-- FORM TAMBAH-->
         <div class="modal-body">
-            <!-- <php echo form_open_multipart('rumah/tambah_rumah'); ?> -->
+        <!-- <form action="<php echo base_url().'rumah/tambah_rumah1' ?>" method="post"> -->
+           <!--  <php echo form_open_multipart('rumah/tambah_rumah1'); ?> -->
         
             <div class="form-group">
                 <label >Nama</label>
-                <input type="text" id = "nama_rumah" name ="nama" class="form-control">
+                <input type="text" id = "nama_rumah" name ="nama_rumah" class="form-control">
             </div>
 
             <div class="form-group">
@@ -114,12 +158,25 @@
 
             <div class="form-group">
                 <label >alamat</label>
-                <input type="text" id="alamat_rumah" name ="alamat" class="form-control">
+                <input type="text" id="alamat_rumah" name ="alamat_rumah" class="form-control">
             </div>
 
             <div class="form-group">
                 <label >Luas (m2)</label>
-                <input type="text" id="luas_rumah" name ="luas" class="form-control">
+                <input type="text" id="luas_rumah" name ="luas_rumah" class="form-control">
+            </div>
+
+           <div class="form-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text ">
+                        <label for="fasilitas">Fasilitas tersedia</label>
+                        <br><input type="checkbox" id="kamar_mandi" name="kamar_mandi" value=""> Kamar Mandi
+                        <br><input type="checkbox" id="kasur" name="kasur" value=""> Kasur
+                        <br><input type="checkbox" id="lemari" name="lemari" value=""> Lemari
+                        <br><input type="checkbox" id="meja" name="meja" value=""> Meja
+                        <br><input type="checkbox" id="ac" name="ac" value=""> AC
+                    </div>
+                </div>
             </div>
 
             <div class="form-group">
@@ -139,7 +196,7 @@
 
             <button type="reset" class="btn btn-danger" data-dismiss="modal">Reset</button>
             <button type="submit" class="btn btn-primary" onclick="tambahrumah();">Simpan</button>
-
+                <!-- </form> -->
             <!-- <php echo form_close(); ?> -->
         </div>
         <div class="modal-footer">
