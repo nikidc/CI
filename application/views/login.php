@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Rumah Sewa | Login</title>
+  <title>Kosakita | Login</title>
 
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -24,7 +24,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="card-header text-center">
-      <a href="<?php echo base_url().'login'; ?>" class="h1"><b>Rumah</b>Sewa</a>
+      <a href="<?php echo base_url().'login'; ?>" class="h1"><b>Kos</b>akita</a>
     </div>
   <div class="login-box-body">
     <div class="card-body">
@@ -58,7 +58,7 @@
             </div>
           </div>
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" class="btn btn-primary btn-block">Masuk</button>
           </div>
           <a href="<?php echo base_url(); ?>register" class="text-center">Belum memiliki akun, klik disini</a>
         </div>

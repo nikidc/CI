@@ -30,11 +30,11 @@
 <body class="hold-transition register-page">
 <div class="register-box">
   <div class="register-logo">
-    <a href="<?php echo base_url().'register';?>"><b>Rumah</b>Sewa</a>
+    <a href="<?php echo base_url().'register';?>"><b>Kos</b>akita</a>
   </div>
 
   <div class="register-box-body">
-    <p class="login-box-msg">Daftar Member Baru</p>
+    <p class="login-box-msg">Daftar Pengguna Baru</p>
 
    <!--  <?php 
 				if($this->session->flashdata('error') !='')

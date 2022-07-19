@@ -1,21 +1,23 @@
-
-<div class="content-wrapper row">
+<title>Edit Rumah</title>
+<div class="content-wrapper">
+    <section class="content-header">
     <h4>
         Edit Rumah
       </h4>
-    <section class="content">
-        <?php foreach($rumah as $rm) { ?>
+      </section>
+    <div class="content">
+        <?php foreach($rumah1 as $rm) { ?>
 
         <form action="<?php echo base_url().'rumah/update'; ?>"
-        method="post">
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Nama</label>
-        <div class="col-sm-8">
-            <input type="hidden" name="id" class="form-control" value="<?php echo $rm->id?>">
-            <input type="text" name="nama" class="form-control" value="<?php echo $rm->nama?>">
-            <?php echo form_error('nama','<small class="text-danger" pl-3>','</small>'); ?>
+            method="post">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Nama</label>
+            <div class="col-sm-8">
+                <input type="hidden" name="id" class="form-control" value="<?php echo $rm->id?>">
+                <input type="text" name="nama" class="form-control" value="<?php echo $rm->nama?>">
+                <?php echo form_error('nama','<small class="text-danger" pl-3>','</small>'); ?>
         </div>
-        
+            
         
     </div>
 
@@ -75,6 +77,27 @@
         </div>
         </div>
 
+        <div class="form-group row">
+            <label for="titik_lokasi" class="col-sm-2 col-form-label">Titik lokasi</label>
+                <div class="col-sm-10">
+                <div id="map1" style="width: 600px; height: 400px;"></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="latitude" class="col-sm-2 col-form-label">Latitude</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" id="latitude" name="latitude">
+                  <?php echo form_error('latitude','<small class="text-danger">','</small>'); ?>
+                </div>
+        </div>
+        <div class="form-group">
+            <label for="longitude" class="col-sm-2 col-form-label">Longitude</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" id="longitude" name="longitude">
+                  <?php echo form_error('longitude','<small class="text-danger">','</small>'); ?>
+                </div>
+        </div>
+
     <!-- <div class="form-group">
         <label >Upload Foto</label>
         <input type="file" id ="foto2" class="form-control" accept="image/jpeg, image/png, image/jpg">
@@ -91,5 +114,5 @@
 
         </form>
         <?php } ?>
-    </section>
+    </div>
 </div>

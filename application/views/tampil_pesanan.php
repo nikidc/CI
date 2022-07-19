@@ -8,7 +8,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?php echo base_url(); ?>rumah/index">Home</a></li>
-        <li class="active">Daftar Rumah</li>
+        <li class="active">Daftar Pesanan</li>
       </ol>
     </section>
     <section class="content">
@@ -29,7 +29,7 @@
                 <th>No HP</th>
                 <th>Nama Rumah</th>
                 <th>Tanggal Mulai</th>
-                <th>Durasi</th>
+                <th>Durasi Sewa</th>
                 <th>STATUS</th>
                 <th colspan="2">AKSI</th>
         

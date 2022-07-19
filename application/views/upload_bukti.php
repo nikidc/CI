@@ -8,7 +8,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Rumah</a></li>
+        <li><a href="<?php echo base_url(); ?>rumah/tampil_konfirmasi">Tampil Upload Bukti</a></li>
         <li class="active">upload bukti</li>
       </ol>
     </section>
@@ -75,7 +75,7 @@
                 <label>Biaya</label>
             </div>
             <div class="box-text col">
-                <?php echo $pes['biaya']; ?>
+                <?php echo number_format($pes['biaya']); ?>
             </div>            
         </div>
         <div class="box-body">
@@ -84,6 +84,17 @@
             </div>
             <div class="box-text col">
                 <?php echo $pes['luas']; ?>
+            </div> 
+        </div>
+        <div class="box-body">
+            <div class="box-text col">
+                <label>Tanggal terima kunci</label>
+            </div>
+            <div class="box-text col">
+                <?php echo $pes['tgl_mulai']; ?>
+            </div> 
+            <div class="box-text col">
+                <?php echo $pes['tgl_terima_kunci']; ?>
             </div> 
         </div>
         <div class="box-body">
@@ -97,7 +108,6 @@
                     <?php echo $pes['tgl_mulai']; ?>
                   </div>
         </div>
-                <?php echo form_error('tgl_mulai','<small class="text-danger">','</small>'); ?>
         <div class="box-body">
           
             <!-- <div class="form-group"> -->
@@ -107,6 +117,19 @@
                   </div>
                   <div class="box-text col">
                     <?php echo $pes['durasi']; ?>
+                  </div>
+        </div>  
+
+        <div class="box-body">
+          
+            <!-- <div class="form-group"> -->
+                
+                  <div class="box-text col">
+                    <label >Total Biaya</label>
+                  </div>
+                  <div class="box-text col">
+                    <?php $total = $pes['durasi'] * $pes['biaya'];
+                      echo number_format($total);?>
                   </div>
         </div>  
         

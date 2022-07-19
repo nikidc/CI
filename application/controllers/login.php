@@ -27,7 +27,7 @@ class Login extends CI_Controller {
 
 	public function login()
 	{
-		$this->form_validation->set_rules('txt_username', 'Username', 'trim|required');
+		$this->form_validation->set_rules('txt_username', 'Username', 'trim|alpha_numeric|required');
 		$this->form_validation->set_rules('txt_password', 'Password', 'trim|required');
 		if ($this->form_validation->run() == FALSE) {
 			echo "<script>document.location('./')</script>";

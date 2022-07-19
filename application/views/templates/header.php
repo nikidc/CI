@@ -10,6 +10,8 @@
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?php echo base_url()?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
+  <!-- <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"> -->
+
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/bower_components/Ionicons/css/ionicons.min.css">
@@ -31,6 +33,11 @@
   <!-- Image uploader -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/plugins/multi-image-uploader-bootstrap/jquery.imagesloader.css">
 
+  <!-- leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+  <!-- stars -->  
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/plugins/starscss/stars.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -49,9 +56,9 @@
     <!-- Logo -->
     <a href="<?php echo base_url(); ?>rumah/dashboard" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>R</b>SW</span>
+      <span class="logo-mini"><b>Ks</b>Kt</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Rumah</b>Sewa</span>
+      <span class="logo-lg"><b>KOS</b>AKITA</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -63,11 +70,11 @@
       
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-          <li class="nav-item dropdown">
+          <!-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa-solid fa-magnifying-glass"></i>coba
             </a>
-              <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown"> -->
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <ul class="dropdown-menu">
                   <li>
                     <a class="dropdown-item" href="#">Action</a>
@@ -78,11 +85,11 @@
                   <li>
                      <a class="dropdown-item" href="#">Something else here</a>
                   </li>
-                </ul> <!-- <div class="dropdown-divider"></div> -->
+                </ul> <div class="dropdown-divider"></div> -->
               <!-- </div> -->
-          </li>
+          <!-- </li> -->
           <!-- Notifications: style can be found in dropdown.less -->
-          <li class="dropdown notifications-menu">
+          <!-- <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
               <span class="label label-warning">10</span>
@@ -91,7 +98,7 @@
             <ul class="dropdown-menu">
               <li class="header">You have 10 notifications</li>
               <li>
-                <!-- inner menu: contains the actual data -->
+                 inner menu: contains the actual data
                 <ul class="menu">
                   <li>
                     <a href="#">
@@ -122,7 +129,7 @@
                 </ul>
               </li>
               <li class="footer"><a href="#">View all</a></li>
-            </ul>
+            </ul> -->
             
           </li>
           <!-- Right navbar links -->

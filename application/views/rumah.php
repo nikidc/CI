@@ -10,12 +10,10 @@
         <li><a href="<?php echo base_url(); ?>rumah/index">Home</a></li>
         <li class="active">Daftar Rumah</li>
       </ol>
-    </section>
-
-
-
+</section>
     <section class="content">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i> Tambah Data Rumah</button>
+        <a class="btn btn-primary" href="<?php echo base_url(); ?>rumah/tampilan_tambah_rumah"><i class="fa fa-plus"></i> Tambah Data Rumah</a>
+        <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i> Tambah Data Rumah</button> -->
         <div class="navbar-form navbar-right">
             <?php echo form_open('rumah/search') ?>
             <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Search">
@@ -105,12 +103,12 @@
 
 <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel"> Tambah Data</h5>
-            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-        </div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Tambah Data</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
 
         <!-- FORM TAMBAH-->
         <div class="modal-body">
@@ -177,7 +175,23 @@
                         <br><input type="checkbox" id="ac" name="ac" value=""> AC
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="titik_lokasi">Titik lokasi</label>
+                    <div>
+                      <div id="map1" style="width: 100%; height: 400px;"></div>
+                    </div>
+                  </div>
+                
             </div>
+            <div class="form-group">
+                <!-- <label >Latitude</label> -->
+                <input type="hidden" id="latitude" name ="latitude" class="form-control">
+            </div>
+            <div class="form-group">
+                <!-- <label >Longitude</label> -->
+                <input type="hidden" id="longitude" name ="longitude" class="form-control">
+            </div>
+
 
             <div class="form-group">
                 <label >Upload Foto</label>
@@ -195,7 +209,7 @@
             </div>
 
             <button type="reset" class="btn btn-danger" data-dismiss="modal">Reset</button>
-            <button type="submit" class="btn btn-primary" onclick="tambahrumah();">Simpan</button>
+            <button class="btn btn-primary" onclick="tambahrumah();">Simpan</button>
                 <!-- </form> -->
             <!-- <php echo form_close(); ?> -->
         </div>
