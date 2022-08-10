@@ -9,8 +9,7 @@
           <img src="<?php echo base_url('assets/foto_profil/').$user['foto_profil'] ?>" class="img-circle elevation-2">
         </div>
         <div class="pull-left info">
-          <p><?= strtoupper($user['nama_l']); ?></p>
-
+          <p><?= strtoupper($user['nama_l']); ?></p><br>
         </div>
       </div>
       <!-- search form -->
@@ -26,9 +25,17 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
+        <li class="header">Terverifikasi <?php if($user['verifikasi_user'] == "FALSE"){ ?>
+          <i class="fa fa-times"></i>
+          <?php echo anchor('rumah/unggahktp/'.$user['id_l'],'<div class="btn btn-sm"><i class="fa fa-check">Klik untuk verifikasi</i></div>') ?>
+          <!-- <a href="<?php echo base_url();?>rumah/unggahktp">Klik untuk verifikasi</a>  -->
+          <?php }else { ?>
+            <i class="fa fa-check"></i>
+             <?php } ?>
+          </li>
         <!-- Query Menu -->
         <?php 
+        // print_r($user);die;
         $role_id = $this->session->userdata('csRole');
         $queryMenu = "SELECT *
                         FROM `user_menu` JOIN `user_access_menu` 
@@ -40,7 +47,8 @@
                        $menu = $this->db->query($queryMenu)->result_array();
         ?>
         <!-- Looping Menu -->
-        <?php foreach ($menu as $m) : ?>
+        <?php foreach ($menu as $m) : 
+          if($m['is_active'] == 1) {?>
         <li class="nav-link">
           <a href="<?php echo base_url($m['url']); ?>">
             <i class="<?php echo $m['icon']; ?>"></i> 
@@ -49,7 +57,7 @@
         </li>
 
 
-          <?php endforeach; ?>  
+          <?php } endforeach; ?>  
 
         <!-- <li class="nav-link">
           <a href="<?php echo base_url(); ?>rumah/dashboard">

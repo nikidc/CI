@@ -51,7 +51,7 @@
         </div>
         <div class="box-body">
             <div class="box-text col">
-                <label>Biaya</label>
+                <label>Biaya</label> (bulan)
             </div>
             <div class="box-text col">
                 Rp<?php echo number_format($detail->biaya); ?>

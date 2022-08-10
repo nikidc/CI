@@ -50,8 +50,26 @@ class rumah_model extends CI_Model {
     }
 
     public function update_data($where,$data,$table){
+        
+        // print_r($table);die;
+        $this->db->trans_begin();
         $this->db->where($where);
         $this->db->update($table,$data);
+        /* $this->db->update($where, $data); */
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return "Gagal";
+        } else {
+            $this->db->trans_commit();
+            return "Berhasil";
+        }
+    }
+    public function update_data1($where,$data,$table){
+        
+        // print_r($where);die;
+        $this->db->where($where);
+        $this->db->update($table,$data);
+        /* $this->db->update($where, $data); */
     }
 
     public function detail_data($id = NULL){

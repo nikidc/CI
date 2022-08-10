@@ -1,3 +1,4 @@
+<title>Detail Rumah</title>
 <div class="content-wrapper">
     <section class="content">
         <h4><strong>DETAIL DATA RUMAH</strong></h4>

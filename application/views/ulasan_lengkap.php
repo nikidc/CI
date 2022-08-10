@@ -1,3 +1,4 @@
+<title>Ulasan Lengkap</title>
 <div class="content-wrapper">
     <section class="content">
         <h4><strong>DETAIL ULASAN <?php echo $ulasan[0]['nama'];?></strong></h4>

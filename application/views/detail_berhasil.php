@@ -76,7 +76,14 @@
     </div>
 
     <div class="form-group row">
-        <label class="col-sm-2">Durasi Sewa</label>
+        <label class="col-sm-2">Biaya Total</label>
+        <div class="col-sm-8">
+            <input type="text" name="biaya" class="form-control" value="<?php echo number_format($pes['biaya']*$pes['durasi'])?>"readonly>
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <label class="col-sm-2">Durasi Sewa(bulan)</label> 
         <div class="col-sm-8">
             <input type="text" name="durasi" class="form-control" value="<?php echo $pes['durasi']." Bulan"?>"readonly>
         </div>

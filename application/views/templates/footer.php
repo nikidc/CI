@@ -246,7 +246,7 @@
 <!-- ini lu udah manggil.. btw klo comment mau cepet pencet ctrl + / -->
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/dataTables/css/dataTables.bootstrap4.min.css" type="text/css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/plugins/dataTables/css/jquery.dataTables.min.css'">
+<!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/plugins/dataTables/css/jquery.dataTables.min.css'"> -->
 <script type="text/javascript" src="<?php echo base_url() ?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>assets/plugins/dataTables/dataTables.min.js"></script>
@@ -733,7 +733,8 @@
           console.log(AvValue);
           var nama = AvValue.nama;
           var alamat = AvValue.alamat;
-          var biaya = AvValue.biaya;               
+          var biaya = AvValue.biaya; 
+          var biaya1 = number_format(biaya,0,',',',','.');               
           var foto1 = AvValue.foto1;
           var lat = AvValue.latitude;
           var lng = AvValue.longitude;
@@ -747,7 +748,7 @@
                nama + "</h5>" +
               "<small>"+ alamat +"</small><br>" +
               "<span class='badge bg-info text-dark mb-3'>" +
-              "Rp" + biaya + "</span>" + "<br>" +
+              "Rp" + biaya1 + "</span>" + "<br>" +
               "<a class='btn btn-sm btn-primary mt-3' href="+"'pesan/"+ id + "'"+ ">Pesan Sekarang</a>" +
               "<a class='btn btn-sm btn-success mt-3' href="+"'detail/"+ id + "'"+ ">Detail</a>" +
     				"</div>" +
@@ -844,6 +845,8 @@
         var biaya            = $("#inputAngka").val();
         var alamat_rumah     = $("#alamat_rumah").val();
         var luas_rumah       = $("#luas_rumah").val();
+        var latitude         = $("#latitude").val();
+        var longitude        = $("#longitude").val();
         /* var fasilitas       = $("#fasilitas").val(); */
 
         form_data.append("nama_rumah", nama_rumah);
@@ -851,8 +854,10 @@
         form_data.append("alamat_rumah", alamat_rumah);
         form_data.append("luas_rumah", luas_rumah);
         form_data.append("jumlah_foto", lengthAll);
-
-        if (lengthAll == 0) {
+        form_data.append("latitude", latitude);
+        form_data.append("longitude", longitude);
+        
+        if (lengthAll == 0 || form_data =="") {
           alert("Gambar kosong");
         } else {
           // gambar > 1
@@ -881,7 +886,7 @@
                         // location.reload();
                         location.replace("<?php echo base_url(); ?>rumah/rumah");
                     } else {
-                        alert("Data Gagal Ditambah!!!");
+                        alert("Data Gagal Ditambah! Mohon cek kolom wajib diisi");
                     }
             },
             error: function(response) {
@@ -916,7 +921,6 @@
 tinggal pas sukses lu mau apain itu datanya gtu doang.. sama tipe datanya apa TEXT atau JSON
 berarti ini gw cari yang cara nyamain hasil akhir, terus baru tampilan? iya,, ke pur gw cari sama coba bikin buat nampilin, nanti gw tanya kalo mentok..oke nnti wa aja klo gua bales brarti gua msh ngerjain wkwk...  gua jg lg selesain yg penting sama mau bikin pertanyaan..oek siap pur.. oke gua end ya -->
 <script>
- 
   function showData(param) {
     $.ajax({
     	type: "POST",
@@ -931,8 +935,11 @@ berarti ini gw cari yang cara nyamain hasil akhir, terus baru tampilan? iya,, ke
         // console.log(i);
     		$("#divTest").empty();
     		$.each(response, function (AvIndex, AvValue) {
-          // console.log(AvValue[i]);
+          // console.log("data: "+AvValue.status);
           
+          var status = AvValue.status;
+          var verifikasi = AvValue.verifikasi;
+          if(status == "tersedia" && verifikasi == "TRUE"){
     			var id = AvValue.id;
           var nama = AvValue.nama;
           var alamat = AvValue.alamat;
@@ -943,7 +950,7 @@ berarti ini gw cari yang cara nyamain hasil akhir, terus baru tampilan? iya,, ke
           var i = getAvgRat(AvValue.id);
                 console.log(i);
 
-
+          // if()
     			$("#divTest").append(
     				"<div class='card col-lg-4 mb-3'>" +
     /*<img src="<php echo base_url().'/foto/'.$rm->foto1 ?>" width="100" height="100" class="card-img-top " alt="..."> */
@@ -960,7 +967,7 @@ berarti ini gw cari yang cara nyamain hasil akhir, terus baru tampilan? iya,, ke
               "<a class='btn btn-sm btn-success mt-3' href="+"'detail/"+ id + "'"+ ">Detail</a>" +
     				"</div>"
     			);
-    		});
+    		}});
     	},
     	error: function (response) {
     		msg = "Server Fault Error Code ( " + response.status + " ) ";
@@ -1107,16 +1114,16 @@ berarti ini gw cari yang cara nyamain hasil akhir, terus baru tampilan? iya,, ke
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
 <script type="text/javascript">
 
-
+//// js tambah pesan
  $(document).ready(function() {
      $(".btn-submit").click(function(e){
       e.preventDefault();
-      var nama = $("#nama").val();
+      /* var nama = $("#nama").val(); */
       var id_rumah = $("#id_rumah").val();
       var id_user = $("#id_user").val();
       var tgl_mulai = $("#tgl_mulai").val();
       var durasi = $("#durasi").val();
-
+      console.log(tgl_mulai);
       if(tgl_mulai=="" || durasi == ""){
         alert("pastikan semua kolom terisi")
       }else{
@@ -1147,6 +1154,396 @@ berarti ini gw cari yang cara nyamain hasil akhir, terus baru tampilan? iya,, ke
 
 </script>
 
+<!-- coba button -->
+<script>
+    var hidden = true;
+    function action() {
+      
+        hidden = !hidden;
+        
+        if(hidden) {
+            document.getElementById('foto1').style.visibility = 'hidden';
+            /* document.getElementById('foto1').style.visibility = 'visible'; */
+        } else {
+            document.getElementById('foto1').style.visibility = 'visible';
+           /*  document.getElementById('foto1').style.visibility = 'hidden'; */
+        }
+    }
+</script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.0.js"></script> -->
+
+
+<script>
+  //button foto1
+  // showData($(this).val());
+  var edit1 ="";
+  var edit2 = "";
+  var edit3 = "";
+  $(document).ready(function(){
+    $('.btn-ubah1').on('click',function(){
+        edit1 = "TRUE";
+        $( "#ubah1" ).hide();
+        $("#foto1").show();
+        $(".btn-ubah1").hide();
+        $(".btn-batal1").show();
+        /* updaterumah(ubah1); */
+        /* console.log(edit1); */
+        getEdit(edit1);
+        // updaterumah($(this).val());
+    });
+    $('.btn-batal1').on('click',function(){
+        edit1 = "FALSE";
+        $( "#ubah1" ).show();
+        $("#foto1").hide();
+        $(".btn-ubah1").show();
+        $(".btn-batal1").hide();
+        /* updaterumah(ubah1); */
+        /* console.log(edit1); */
+        getEdit(edit1);
+        // updaterumah($(this).val());
+    });
+    //btn 2
+    $('.btn-ubah2').on('click',function(){
+        edit2 = "TRUE";
+        $( "#ubah2" ).hide();
+        $("#foto2").show();
+        $(".btn-ubah2").hide();
+        $(".btn-batal2").show();
+        /* updaterumah(ubah1); */
+        /* console.log(edit1); */
+        getEdit2(edit2);
+        // updaterumah($(this).val());
+    });
+    $('.btn-batal2').on('click',function(){
+        edit2 = "FALSE";
+        $( "#ubah2" ).show();
+        $("#foto2").hide();
+        $(".btn-ubah2").show();
+        $(".btn-batal2").hide();
+        /* updaterumah(ubah1); */
+        /* console.log(edit1); */
+        getEdit2(edit2);
+        // updaterumah($(this).val());
+    });
+    //btn 3
+    $('.btn-ubah3').on('click',function(){
+        edit3 = "TRUE";
+        $( "#ubah3" ).hide();
+        $("#foto3").show();
+        $(".btn-ubah3").hide();
+        $(".btn-batal3").show();
+        /* updaterumah(ubah1); */
+        /* console.log(edit1); */
+        getEdit3(edit3);
+        // updaterumah($(this).val());
+    });
+    $('.btn-batal3').on('click',function(){
+        edit3 = "FALSE";
+        $( "#ubah3" ).show();
+        $("#foto3").hide();
+        $(".btn-ubah3").show();
+        $(".btn-batal3").hide();
+        /* updaterumah(ubah1); */
+        /* console.log(edit1); */
+        getEdit3(edit3);
+        // updaterumah($(this).val());
+    });
+});
+  
+  /* var ubah1 = "FALSE"; */
+  // $( ".btn-uba1" ).click(function() {
+  //   var ubah1 = "TRUE";
+  //   $( "#ubah1" ).hide();
+  //   $("#foto1").show();
+  //   $(".btn-ubah1").hide();
+  //   $(".btn-batal1").show();
+    
+  //   }
+  // );
+  // $( ".btn-batal1" ).click(function() {
+  //   var ubah1 = "FALSE";
+  //   $( "#ubah1" ).show();
+  //   $("#foto1").hide();
+  //   $(".btn-ubah1").show();
+  //   $(".btn-batal1").hide();
+    
+  //   }
+  // );
+  // console.log(ubah1);
+  //button foto2
+  // $( ".btn-ubah2" ).click(function() {
+  //   $( "#ubah2" ).hide();
+  //   $("#foto2").show();
+  //   $(".btn-ubah2").hide();
+  //   $(".btn-batal2").show();
+  //   var edit2 = "TRUE";
+  //   console.log(edit2);
+  //   }
+  // );
+  // $( ".btn-batal2" ).click(function() {
+  //   $( "#ubah2" ).show();
+  //   $("#foto2").hide();
+  //   $(".btn-ubah2").show();
+  //   $(".btn-batal2").hide();
+  //   edit2 = "FALSE";
+  //   console.log(edit2); 
+  //   }
+  // );
+  
+
+  //button foto3
+  // $( ".btn-ubah3" ).click(function() {
+  //   $( "#ubah3" ).hide();
+  //   $("#foto3").show();
+  //   $(".btn-ubah3").hide();
+  //   $(".btn-batal3").show();
+  //   }
+  // );
+  // $( ".btn-batal3" ).click(function() {
+  //   $( "#ubah3" ).show();
+  //   $("#foto3").hide();
+  //   $(".btn-ubah3").show();
+  //   $(".btn-batal3").hide();
+  //   }
+  // );
+
+  ///gagal
+ /*  $(function () {
+    if ($("#ubah1").length == 0) {
+      var edit1 = "FALSE";
+      updaterumah(edit1);
+    }
+
+    $(".btn-ubah1").on("click", function (e) {
+    	e.preventDefault();
+      $( "#ubah1" ).hide();
+      $("#foto1").show();
+      $(".btn-ubah1").hide();
+      $(".btn-batal1").show();
+      edit1 = "TRUE";
+    	updaterumah(edit1);
+    });
+  }) */
+
+  </script>
+
+
+  <script>
+    function getEdit(edit1){
+      if(edit1 == "TRUE"){
+      alert("Silahkan upload gambar 1");
+    }else{
+      alert("Tidak mengubah gambar 1");
+    }
+  }
+  function getEdit2(edit2){
+    if(edit2 == "TRUE"){
+      alert("Silahkan upload gambar 2");
+    }else{
+      alert("Tidak mengubah gambar 2");
+    }
+  }
+  function getEdit3(edit3){
+    if(edit3 == "TRUE"){
+      alert("Silahkan upload gambar 3");
+    }else{
+      alert("Tidak mengubah gambar 3");
+    }
+  }
+
+    
+/////////////////////////COBA EDIT 1-3 FOTO??????????????????????????????
+  function updaterumah() {
+    /* console.log(edit1);
+    if(edit1 == "TRUE"){
+      alert("Silahkan upload gambar");
+    }else{
+      alert("Tidak mengubah gambar");
+    } */
+    var form_data = new FormData();
+        var length1 = $("#foto1").get(0).files.length;
+        var length2 = $("#foto2").get(0).files.length;
+        var length3 = $("#foto3").get(0).files.length;
+        var lengthAll = length1 + length2 + length3;
+      
+
+        if ($('#kamar_mandi').is(":checked")) {
+          form_data.append("kamar_mandi", "TRUE");
+        } else {
+          form_data.append("kamar_mandi", "FALSE");
+        }
+        if ($('#kasur').is(":checked")) {
+          form_data.append("kasur", "TRUE");
+        } else {
+          form_data.append("kasur", "FALSE");
+        }
+        if ($('#lemari').is(":checked")) {
+          form_data.append("lemari", "TRUE");
+        } else {
+          form_data.append("lemari", "FALSE");
+        }
+        if ($('#meja').is(":checked")) {
+          form_data.append("meja", "TRUE");
+        } else {
+          form_data.append("meja", "FALSE");
+        }
+        if ($('#ac').is(":checked")) {
+          form_data.append("ac", "TRUE");
+        } else {
+          form_data.append("ac", "FALSE");
+        }
+        var id               = $("#id").val();
+        var nama             = $("#nama").val();
+        var biaya            = $("#biaya").val();
+        var alamat           = $("#alamat").val();
+        var luas              = $("#luas").val();
+        var latitude         = $("#latitude").val();
+        var longitude        = $("#longitude").val();
+        /* var fasilitas       = $("#fasilitas").val(); */
+
+        form_data.append("id", id);
+        form_data.append("nama", nama);
+        form_data.append("biaya", biaya);
+        form_data.append("alamat", alamat);
+        form_data.append("luas", luas);
+        form_data.append("jumlah_foto", lengthAll);
+        form_data.append("latitude", latitude);
+        form_data.append("longitude", longitude);
+        
+        /* if (lengthAll == 0) {
+          alert("Gambar kosong");
+        } else { */
+          // gambar > 1
+          for (let i = 1; i < 4; i++) {
+            var id    = "#foto"+i;
+            var file  = "file"+i;
+            var length = $(id).get(0).files.length;
+            if (length != 0) {
+              form_data.append(file, $(id)[0].files[0]);
+            }
+          }
+         
+          $.ajax({
+            type: "POST",
+            url: "<?php echo base_url(); ?>rumah/update",
+            contentType: false,
+            processData: false,
+            dataType: "TEXT",
+            data: form_data,
+            success: function(response) {
+              if (jQuery.trim(response) === "Berhasil") {
+                        alert("Data Berhasil Diubah!!!");
+                        // location.reload();
+                        location.replace("<?php echo base_url(); ?>rumah/rumah");
+                    } else {
+                        alert("Data Gagal Diubah! Mohon cek kolom wajib diisi");
+                    }
+            },
+            error: function(response) {
+              var msg = "Server Fault Error Code ( " + response.status + " ) ";
+              alert(msg);
+            }
+          });
+        // }
+  }
+  //////////////////////////////////
+  //////////////////////////////////
+  //coba
+
+
+  ////////////////////////////////
+</script>
+
+
+<!-- <script type="text/javascript">
+   ///js coba update
+ $(document).ready(function() {
+     $(".btn-update").click(function(e){
+      e.preventDefault();
+      /* var form_data = new FormData(); */
+      if ($('#kamar_mandi').is(":checked")) {
+          var kamar_mandi = "TRUE";
+        } else {
+          var kamar_mandi = "FALSE";
+        }
+        if ($('#kasur').is(":checked")) {
+          var kasur = "TRUE";
+        } else {
+          var kasur = "FALSE";
+        }
+        if ($('#lemari').is(":checked")) {
+          var lemari = "TRUE";
+        } else {
+          var lemari = "FALSE";
+        }
+        if ($('#meja').is(":checked")) {
+          var meja = "TRUE";
+        } else {
+          var meja = "FALSE";
+        }
+        if ($('#ac').is(":checked")) {
+          var ac ="TRUE";
+        } else {
+          var ac ="FALSE";
+        }
+        var id        =$("#id").val();
+        var nama       = $("#nama").val();
+        var biaya            = $("#biaya").val();
+        var alamat     = $("#alamat").val();
+        var luas       = $("#luas").val();
+        var latitude         = $("#latitude").val();
+        var longitude        = $("#longitude").val();
+
+        /* var fasilitas       = $("#fasilitas").val(); */
+
+        /* form_data.append("nama_rumah", nama_rumah);
+        form_data.append("biaya", biaya);
+        form_data.append("alamat_rumah", alamat_rumah);
+        form_data.append("luas_rumah", luas_rumah); */
+
+      /* var nama = $("#nama").val();
+      var id_rumah = $("#id_rumah").val();
+      var id_user = $("#id_user").val();
+      var tgl_mulai = $("#tgl_mulai").val();
+      var durasi = $("#durasi").val(); */
+        // console.log(form_data.values);
+      if(nama =="" || biaya == ""){
+        
+        alert("Pastikan semua kolom terisi")
+        
+      }else{
+         $.ajax({
+             type:"POST",
+             url: "<?php echo base_url(); ?>rumah/update",
+             dataType: "TEXT",
+             data: {
+                    id:id,
+                    nama:nama, 
+                    biaya:biaya, 
+                    alamat:alamat, 
+                    luas:luas,
+                    kamar_mandi:kamar_mandi,
+                    kasur:kasur,
+                    lemari:lemari,
+                    meja:meja,
+                    ac:ac,
+                    latitude:latitude,
+                    longitude:longitude
+                  },
+             success: function(data) {
+                 if($.isEmptyObject(data.error)){
+                  $(".print-error-msg").css('display','none');
+                  alert("BERHASIL");
+                  location.replace("<?php echo base_url(); ?>rumah/rumah");
+                 }else{
+                  $(".print-error-msg").css('display','block');
+                  $(".print-error-msg").html(data.error);
+                 }
+             }
+         })};
+     }); 
+ });
+</script> -->
 <!-- leaflet MAP PENCARI -->
 <script>
  var peta1 = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {

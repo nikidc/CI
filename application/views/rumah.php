@@ -13,13 +13,18 @@
 </section>
     <section class="content">
         <a class="btn btn-primary" href="<?php echo base_url(); ?>rumah/tampilan_tambah_rumah"><i class="fa fa-plus"></i> Tambah Data Rumah</a>
+        <br><br>
+        <!-- <button class="btn btn-primary" onclick="action();">Simpan</button>
+        <input type="button" id="toggler" value="Toggler" onClick="action();" />
+        <input type="file" id="togglee" value="Togglee" />
+        <input type="text" id="togglee1" value="Togglee1" /> -->
         <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i> Tambah Data Rumah</button> -->
-        <div class="navbar-form navbar-right">
+       <!--  <div class="navbar-form navbar-right">
             <?php echo form_open('rumah/search') ?>
             <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Search">
             <button type="submit" class="btn btn-success">Cari</button>
             <?php echo form_close() ?>
-        </div>
+        </div> -->
         <table class="table">
             <tr>
                 <th>No</th>

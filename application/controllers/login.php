@@ -20,7 +20,7 @@ class Login extends CI_Controller {
 		$role    	= $this->session->userdata("csRole");
 		if (!empty($username) && !empty($role)) {
 			redirect("rumah/dashboard", "refresh");
-		} else {
+		}else {
 			$this->load->view("login");
 		}
 	}
@@ -46,7 +46,9 @@ class Login extends CI_Controller {
 
 				if($hasil['role_l'] == 'pemilik'){
 					redirect('rumah/rumah');
-				} else{
+				} elseif($hasil['role_l'] == 'admin'){
+					redirect('rumah/data_member');
+				}else{
 					$this->session_check();
 				}
 				

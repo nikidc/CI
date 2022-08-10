@@ -28,7 +28,7 @@
         
             </tr>
              <!-- Query Rumah -->
-            <?php 
+            <?php
             $no =1;
             // print_r($pesanan);die;
             foreach ($pesanan as $pes):?>

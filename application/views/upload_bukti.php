@@ -1,10 +1,11 @@
 <!-- Content Wrapper. Contains page content -->
+<title>Unggah Bukti</title>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
         Bukti Pembayaran
-        <small>Silahkan upload bukti pembayaran</small>
+        <small>Silahkan unggah bukti pembayaran</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -72,7 +73,7 @@
         </div>
         <div class="box-body">
             <div class="box-text col">
-                <label>Biaya</label>
+                <label>Biaya (bulan)</label>
             </div>
             <div class="box-text col">
                 <?php echo number_format($pes['biaya']); ?>
@@ -130,6 +131,18 @@
                   <div class="box-text col">
                     <?php $total = $pes['durasi'] * $pes['biaya'];
                       echo number_format($total);?>
+                  </div>
+        </div>  
+        
+        <div class="box-body">
+          
+            <!-- <div class="form-group"> -->
+                
+                  <div class="box-text col">
+                    <label >Nomor Rekening</label>
+                  </div>
+                  <div class="box-text col">
+                    712345987675
                   </div>
         </div>  
         

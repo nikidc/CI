@@ -13,6 +13,9 @@
        <input type="hidden" name="latitudeU" id="latitudeU" class="form-control" value="<?php echo $user['latitudeU']?>">
        <input type="hidden" name="longitudeU" id="longitudeU" class="form-control" value="<?php echo $user['longitudeU']?>">
       </div>
+      <div class="col-lg-12">
+            <?php echo $this->session->flashdata('message'); ?>  
+        </div>
     <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-search-plus"></i> Cari Sesuai Kriteria</button>
      <!--  <div class="container-fluid">
         <div class="row">
@@ -70,8 +73,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"> Tambah Data</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="exampleModalLabel">Tentukan Kriteria</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><i class="fa fa-window-close"></i></button>
             </div>
      <!-- FORM TAMBAH-->
      <div class="modal-body">
@@ -140,7 +143,7 @@
             <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Hasil Pencarian</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><i class="fa fa-window-close"></i></button>
           </div>
             <div class="modal-body" id="bodyMaut">
 

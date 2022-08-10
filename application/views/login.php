@@ -53,7 +53,7 @@
             <div class="icheck-primary">
               <input type="checkbox" id="showPassword">
               <label for="showPassword">
-                Show Password
+                Tunjukkan Password
               </label>
             </div>
           </div>

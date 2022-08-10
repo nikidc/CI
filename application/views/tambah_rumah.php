@@ -16,11 +16,14 @@
     <div class="form-group">
                 <label >Nama</label>
                 <input type="text" id = "nama_rumah" name ="nama_rumah" class="form-control">
+                <small>Wajib diisi</small>
             </div>
 
             <div class="form-group">
                 <label >Biaya</label>
                 <input type="number" id="inputAngka" name ="biaya" class="form-control">
+                <small>Wajib diisi</small>
+                <!-- <?php echo form_error('biaya','<small class="text-danger" pl-3>','</small>'); ?> -->
                 <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
                 <script type="text/javascript">
                     $('#inputAngka').on('keyup',function(){
@@ -53,8 +56,9 @@
             </div>
 
             <div class="form-group">
-                <label >Alamat</label>
+                <label >Alamat Lengkap</label>
                 <input type="text" id="alamat_rumah" name ="alamat_rumah" class="form-control">
+                <small>Wajib diisi</small>
             </div>
                 <!-- <input type="text" id="luas_rumah" name ="luas_rumah" class="form-control"> -->
             <div class="form-group">
@@ -72,6 +76,7 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text ">
                         <label for="fasilitas">Fasilitas tersedia</label>
+                        <small>Silahkan pilih fasilitas sesuai kondisi kos</small>
                         <br><input type="checkbox" id="kamar_mandi" name="kamar_mandi" value=""> Kamar Mandi
                         <br><input type="checkbox" id="kasur" name="kasur" value=""> Kasur
                         <br><input type="checkbox" id="lemari" name="lemari" value=""> Lemari
@@ -82,6 +87,7 @@
             
                 <div class="form-group">
                     <label for="titik_lokasi">Titik lokasi</label>
+                    <small>Pilih titik lokasi sesuai alamat</small>
                     <div>
                       <div id="map1" style="width: 80%; height: 400px;"></div>
                     </div>

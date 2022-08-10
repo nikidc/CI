@@ -1,10 +1,10 @@
-<title> TAMPILAN Upload Bukti </title>
+<title> TAMPILAN Unggah Bukti </title>
 <!-- main content -->
 <div class="content-wrapper">
 <section class="content-header">
       <h1>
-        Tampilan Konfirmasi
-        <small>Silahkan upload bukti bayar bila sudah dikonfirmasi</small>
+        Tampilan Unggah Bukti
+        <small>Silahkan unggah bukti bayar bila sudah dikonfirmasi</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?php echo base_url(); ?>rumah/index">Home</a></li>
@@ -50,15 +50,15 @@
                 <td><?php echo $pes->durasi; ?></td>
                 <td><?php echo $pes->status_p; ?></td>
                 <td><?php echo $pes->foto_bukti; ?></td>
-                <td><?php echo $pes->biaya * $pes->durasi; ?></td>
+                <td><?php echo number_format($pes->biaya * $pes->durasi); ?></td>
                <!--  <td onclick="javascript: return confirm('Anda yakin ingin menghapus?') ">
                     <?php echo anchor('rumah/hapus/'.$pes->id_pes,
                      '<div class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></div>') ?>
                     </td> -->
-                <td><?php if($pes->status_p == 'DITERIMA') { ?>
+                <td><?php if($pes->status_p == 'DITERIMA' && $pes->verifikasi_pemb == "FALSE") { ?>
                   <?php echo anchor('rumah/upload_bukti/'.$pes->id_pes,'<div class="btn btn-primary btn-sm"><i class="fa fa-upload"></i></div>') ?>
                   <?php ;} ?>
-                  <?php if($pes->foto_bukti != NULL) { ?>
+                  <?php if($pes->foto_bukti != NULL && $pes->verifikasi_pemb == "TRUE") { ?>
                     <?php echo anchor('rumah/pdf/'.$pes->id_pes,'<div class="btn btn-success btn-sm"><i class="fa fa-file"></i></div>') ?>
                   <?php ;} ?>
                 </td>

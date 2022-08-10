@@ -39,7 +39,7 @@
             ?>
 
         <form action="<?php echo base_url().'rumah/konfirmasi_p'; ?>"
-        method="post">
+            method="post">
     <div class="form-group row">
         <label class="col-sm-2">ID</label>
         <div class="col-sm-8">
@@ -79,9 +79,16 @@
     </div>
 
     <div class="form-group row">
-        <label class="col-sm-2">Durasi Sewa</label>
+        <label class="col-sm-2">Durasi Sewa  (bulan)</label>
         <div class="col-sm-8">
             <input type="text" name="durasi" class="form-control" value="<?php echo $pes['durasi']." Bulan"?>"readonly>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2">Biaya Total</label>
+        <div class="col-sm-8">
+            <input type="text" name="biaya" class="form-control" value="<?php echo number_format($pes['biaya']*$pes['durasi'])?>"readonly>
         </div>
     </div>
 
@@ -96,7 +103,7 @@
         <label class="col-sm-2">Waktu Terima kunci</label>
         <div class="form-group col-sm-8">
             <input type="time" name="tgl_terima_kunci" id="tgl_terima_kunci" class="form-control">
-            <p>waktu tertera pada tanggal<?php echo $pes['tgl_mulai']; ?></p>
+            <p>waktu tertera pada tanggal <?php echo $pes['tgl_mulai']; ?></p>
           <!-- <select name="waktu_terima_kunci" id="waktu_terima_kunci" class="form-control">
             <option value="pencari">Pencari Rumah</option>
             <option value="pemilik">Pemilik Rumah</option>

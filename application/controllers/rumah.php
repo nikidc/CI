@@ -52,7 +52,7 @@ class Rumah extends CI_Controller {
 
     public function setting()
 	{
-		$data['user'] = $this->db->get_where('login', ['username' => $this->session->userdata('csUsername')])->row_array();
+		$user['user'] = $this->db->get_where('login', ['username' => $this->session->userdata('csUsername')])->row_array();
         $data['rumah'] = $this->rumah_model->tampil_data()->result();
         /* print_r($data['user']);die; */
         /* print_r($data);die; */
@@ -68,7 +68,7 @@ class Rumah extends CI_Controller {
                                             ['required' => 'Harap memilih titik lokasi']);
         if($this->form_validation->run() == false){
             $this->load->view('templates/header');
-            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/sidebar', $user);
             $this->load->view('setting', $data);
             $this->load->view('templates/footer');
         }else{
@@ -190,8 +190,10 @@ class Rumah extends CI_Controller {
     }
 
     public function update(){
-
-       /*  $this->load->library('form_validation');
+        /* $id = $this->input->post('id'); */
+        
+        $data['user'] = $this->db->get_where('login', ['username' => $this->session->userdata('csUsername')])->row_array();
+        /* $this->load->library('form_validation');
         $this->form_validation->set_rules('nama', 'nama', 'required|trim',
                                           ['required' => 'Nama Wajib Diisi']);
         $this->form_validation->set_rules('biaya', 'biaya', 'required|trim',
@@ -201,11 +203,17 @@ class Rumah extends CI_Controller {
         $this->form_validation->set_rules('luas', 'luas', 'required|trim',
                                           ['required' => 'Nama Wajib Diisi']); 
         if($this->form_validation->run() == false){
-            echo "gagal";
-        }else{
-        } */
-        
+            /* $where = array(
+                'id' =>$id
+            ); */
+           /*  $result = $this->rumah_model->update_data($where,$data, 'tb_produk');
+            echo $result;
+        }else{  */
+                    
                     $id = $this->input->post('id');
+                    $where = array('id' => $id);
+                    $data['rumah1'] = $this->rumah_model->edit_data($where,'tb_produk')->result();
+                    // print_r($data);die;
                     $nama = $this->input->post('nama');
                     $biaya = $this->input->post('biaya');
                     $alamat = $this->input->post('alamat');
@@ -245,15 +253,84 @@ class Rumah extends CI_Controller {
                         'ac' => $ac,
                         'latitude' => $latitude,
                         'longitude' => $longitude
+                    );
+                    // print_r($data);die;
+                    ///////////BATAS SUCI ///////////////////
+                    $upload = 0;
 
-                    );
+                    $fullPath = "foto/";
+                   
+                    $id_paket   = $this->rumah_model->tambah_rumah1();
+                    $lastId     = $id_paket[0]["id"];
+                    $currId     = $lastId+1;      
+
+                    $userId = $this->session->userdata("csIdUser");  
+                    $filenameTemp = "Rumah_".$userId."_".$id."_";
                     
-                    $where = array(
-                        'id' =>$id
-                    );
+                    for ($i=1; $i < 4; $i++) {
+                        $file		= "file".$i;
+                        $foto		= "foto".$i;
+                        if (isset($_FILES[$file])) {
+                            $name			= $_FILES[$file]["name"];
+                            $filename	= $filenameTemp.$i;
+            
+                            if (substr($name, -5) == ".jpeg") {
+                                $filename1	= $filename.".jpeg";
+                            } else if (substr($name, -4) == ".jpg") {
+                                $filename1	= $filename.".jpg";
+                            } else if (substr($name, -4) == ".png") {
+                                $filename1	= $filename.".png";
+                            }
+                            
+                            $config_image['upload_path'] 		= $fullPath;
+                            $config_image['allowed_types'] 	= 'jpg|jpeg|png';
+                            $config_image['overwrite']		 	= TRUE;
+                            $config_image['file_name'] 			= $filename;
+            
+                            $this->load->library('upload', $config_image);
+                            $this->upload->initialize($config_image);
+                            if ($this->upload->do_upload($file)) {
+                                $upload += 1;
+                            } else {
+                                $upload += 0;
+                            }
+                            $data[$foto] = $filename1;
+                        } 
+                        /* else {
+                            $data[$foto] = NULL;
+                        } */
+                    }
                     
-                    $this->rumah_model->update_data($where, $data,'tb_produk');
-                    redirect('rumah/rumah');
+            
+                    if ($upload == $_POST["jumlah_foto"] && $data['nama'] != "") {
+                        if($data['biaya'] != "" && $data['alamat'] != ""){
+                            $where = array(
+                                'id' =>$id
+                            );
+                            /* print_r($where);
+                            die; */
+                            $result = $this->rumah_model->update_data($where, $data,'tb_produk');
+                            echo $result;
+                        }
+                        
+                        /* echo "Berhasil"; */
+                    } else {
+                        echo "Foto gagal di upload";
+                    }
+
+
+
+
+                    ///////////////////////////BATAS SUCI
+                    
+                    // $where = array(
+                    //     'id' =>$id
+                    // );
+                    
+                    // $result = $this->rumah_model->update_data($where, $data,'tb_produk');
+                    // echo $result;
+                    // redirect('rumah/rumah');
+                // }
     }
 
     public function detail($id){
@@ -297,16 +374,33 @@ class Rumah extends CI_Controller {
     }
 
     public function tambah_rumah1(){
+        $user['user'] = $this->db->get_where('login', ['username' => $this->session->userdata('csUsername')])->row_array();
+        /* $this->load->library('form_validation');
+        $this->form_validation->set_rules('nama', 'nama', 'required|trim',
+                                          ['required' => 'Nama Wajib Diisi']);
+        $this->form_validation->set_rules('biaya', 'biaya', 'required|trim',
+                                          ['required' => 'biaya Wajib Diisi']); 
+        $this->form_validation->set_rules('alamat', 'alamat', 'required|trim',
+                                          ['required' => 'alamat Wajib Diisi']);
+        $this->form_validation->set_rules('luas', 'luas', 'required|trim',
+                                          ['required' => 'luas Wajib Diisi']); 
+        if($this->form_validation->run() == false){
+            $this->load->view('templates/header');
+            $this->load->view('templates/sidebar', $user);
+            $this->load->view('tambah_rumah');
+            $this->load->view('templates/footer');
+        }else{ */
+          
         $upload = 0;
 
         $fullPath = "foto/";
        
-        /* $id_paket   = $this->rumah_model->tambah_rumah1(); */
-        /* $lastId     = $id_paket[0]["id"]; */
-       /*  $currId     = $lastId+1; */      
+        $id_paket   = $this->rumah_model->tambah_rumah1();
+        $lastId     = $id_paket[0]["id"];
+        $currId     = $lastId+1;      
         $userId = $this->session->userdata("csIdUser");  
-        $filenameTemp = "Rumah_".$userId."_";
-       
+        $filenameTemp = "Rumah_".$userId."_".$currId."_";
+        
         $data=array(
             "nama"          => $_POST["nama_rumah"],
             "biaya"         => $_POST["biaya"],
@@ -317,6 +411,8 @@ class Rumah extends CI_Controller {
             "lemari"        => $_POST["lemari"],
             "meja"          => $_POST["meja"],
             "ac"            => $_POST["ac"],
+            "latitude"      => $_POST["latitude"],
+            "longitude"     => $_POST["longitude"],
             "user_id"       => $userId
         );
         
@@ -355,14 +451,17 @@ class Rumah extends CI_Controller {
         /* print_r($data);
         die; */
 
-        if ($upload == $_POST["jumlah_foto"]) {
+        if ($upload == $_POST["jumlah_foto"] && $data['nama'] != "") {
+            if($data['biaya'] != "" && $data['alamat'] != ""){
             $result = $this->rumah_model->insertRumah($data);
             echo $result;
+            }
             
             /* echo "Berhasil"; */
         } else {
             echo "Foto gagal di upload";
         }
+    //  }
 
     }
 
@@ -372,7 +471,6 @@ class Rumah extends CI_Controller {
 
         $user['user'] = $this->db->get_where('login', ['username' => $this->session->userdata('csUsername')])->row_array();
         
-
         $this->load->view('templates/header');
 		$this->load->view('templates/sidebar', $user);
 		$this->load->view('rumah', $data);
@@ -397,11 +495,9 @@ class Rumah extends CI_Controller {
         
         $detail = $this->rumah_model->detail_data($id);
         $data['detail'] = $detail;
-        $data['user'] = $this->db->get_where('login', ['username' => $this->session->userdata('csUsername')])->row_array();
-        $user = $data['user'];
-        
+        $user['user'] = $this->db->get_where('login', ['username' => $this->session->userdata('csUsername')])->row_array();        
         $this->load->view('templates/header');
-        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/sidebar', $user);
         $this->load->view('pesan', $data);
         $this->load->view('templates/footer');        
     }
@@ -433,13 +529,17 @@ class Rumah extends CI_Controller {
             $durasi = $this->input->post('durasi');
             $alamat_user = $this->input->post('alamat_user');
             $no_telp = $this->input->post('no_telp');
-
-           
+            $tgl_mulai1 = date_create($tgl_mulai);
+            $durasi2 = $durasi." months";
+            $cari_tgl_akhir = date_modify($tgl_mulai1, $durasi2);
+            $tgl_akhir = date_format($cari_tgl_akhir, "Y-m-d");
+            // print_r($tgl_akhir);die;
                 $data = array(
                         'id_rumah'    => $this->input->post('id_rumah'),
                         'id_user'     => $user['id_l'],
                         'tgl_mulai'   => $this->input->post('tgl_mulai'),
                         'durasi'      => $this->input->post('durasi'),
+                        'tgl_akhir'   => $tgl_akhir,
                         'waktu_pesan' => date('Y-m-d H:i:s')
                         /* 'foto_bukti'    => $foto_bukti */
                         );
@@ -484,7 +584,10 @@ class Rumah extends CI_Controller {
         $status_p = $this->input->post('status_p');
         $id_pes = $this->input->post('id_pes');
         $id_rumah = $this->input->post('id_rumah');
-        
+        if($tgl_terima_kunci == "" && $status_p == ""){
+            $this->session->set_flashdata('message','<div class="alert alert-warning" role="alert">Pesanan belum dikonfirmasi, Silahkan isi kembali</div>');
+            redirect('rumah/tampil_pesanan');
+        }else{
         $data = array(
             'tgl_terima_kunci' => $tgl_terima_kunci,
             'status' => $status_p
@@ -501,7 +604,8 @@ class Rumah extends CI_Controller {
             'id'     => $id_pes
         ); */
         /* print_r($where);die; */
-        $this->rumah_model->update_data($where, $data,'pemesanan');
+    
+        $this->rumah_model->update_data1($where, $data,'pemesanan');
         if($data['status'] == "DITERIMA"){
             $data1 = array(
                 'status' => 'terisi'
@@ -510,7 +614,7 @@ class Rumah extends CI_Controller {
                 'id'     => $id_rumah
             ); 
             // print_r($data1);die;
-            $this->rumah_model->update_data($where1, $data1, 'tb_produk');
+            $this->rumah_model->update_data1($where1, $data1, 'tb_produk');
             $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Pesanan sudah Diterima</div>');
             redirect('rumah/tampil_pesanan');
         }
@@ -518,6 +622,7 @@ class Rumah extends CI_Controller {
             $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Pesanan Ditolak!</div>');
             redirect('rumah/tampil_pesanan'); 
         }
+    }
     }
     ///////////////////////////////////////////////////////
     //pemilik
@@ -545,7 +650,7 @@ class Rumah extends CI_Controller {
 
     public function konfirmasi_selesai_do()
     {       
-        date_default_timezone_set('Asia/Jakarta');
+            date_default_timezone_set('Asia/Jakarta');
             $sewa_selesai = $this->input->post('sewa_selesai');
             $id_pes = $this->input->post('id_pes');
             $id_rumah = $this->input->post('id_rumah');
@@ -557,7 +662,7 @@ class Rumah extends CI_Controller {
             $where = array(
                 'id_pes'     => $id_pes
             );
-            $this->rumah_model->update_data($where, $data,'pemesanan');
+            $this->rumah_model->update_data1($where, $data,'pemesanan');
             if($data['sewa_selesai'] == "TRUE"){
                 $data1 = array(
                     'status' => 'tersedia'
@@ -565,8 +670,8 @@ class Rumah extends CI_Controller {
                 $where1 = array(
                     'id'     => $id_rumah
                 ); 
-                // print_r($data);die;
-                $this->rumah_model->update_data($where1, $data1, 'tb_produk');
+                // print_r($where1);die;
+                $this->rumah_model->update_data1($where1, $data1, 'tb_produk');
                 $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Pesanan Sudah Selesai</div>');
                 redirect('rumah/pesanan_berlangsung');
             }
@@ -621,10 +726,10 @@ class Rumah extends CI_Controller {
         $detail = $this->rumah_model->tambah_ulasan($id);
         $data['detail'] = $detail;
         // print_r($detail);die;
-        $data['user'] = $this->db->get_where('login', ['username' => $this->session->userdata('csUsername')])->row_array();
+        $user['user'] = $this->db->get_where('login', ['username' => $this->session->userdata('csUsername')])->row_array();
         $user = $data['user'];
         $this->load->view('templates/header');
-        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/sidebar', $user);
         $this->load->view('tambah_ulasan', $data);
         $this->load->view('templates/footer');        
     }
@@ -742,7 +847,7 @@ class Rumah extends CI_Controller {
         $userId = $this->session->userdata("csIdUser");  
         $filenameTemp = "Bukti_".$id_pes;
         $edit_foto = $_FILES['foto_bukti']['name'];
-
+        // print_r($edit_foto);die;
         if($edit_foto){
                 $config['allowed_types']            = 'jpeg|jpg|png';
                 $config['overwrite']	            = TRUE;
@@ -766,11 +871,11 @@ class Rumah extends CI_Controller {
                 $where = array(
                         'id_pes'     => $id_pes
                 );
-                $this->rumah_model->update_data($where, $data,'pemesanan');
+                $this->rumah_model->update_data1($where, $data,'pemesanan');
                 $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Upload bukti telah berhasil</div>');
                     redirect('rumah/tampil_konfirmasi'); 
                 }else{
-                   echo "<script>alert('Gambar tidak boleh kosong!');</script>";
+                   echo "<script>alert('File belum diunggah!');</script>";
 				    echo "<script>document.location='./tampil_konfirmasi'</script>";
 
                 }   
@@ -905,22 +1010,115 @@ class Rumah extends CI_Controller {
     //      PENCARI////////
     public function pdf($id)
     {
-        $this->load->library('dompdf_gen');
+        $this->load->library('pdfbaru');
 
-        $data['pesanan'] = $this->rumah_model->pdf($id);
+        // $data['pesanan'] = $this->rumah_model->pdf($id);
         // print_r($data);die;
-        $this->load->view('kuitansi_pdf', $data);
+        // $this->load->view('kuitansi_pdf', $data);
 
-        $paper_size = 'A4';
-        $orientation = 'portrait';
-        $html = $this->output->get_output();
-        $this->dompdf->set_paper($paper_size, $orientation);
-        $this->dompdf->load_html($html);
-        $this->dompdf->render();
-        $this->dompdf->stream("kuitansi"+$id+".pdf", array('Attachment' => 0));
+        /* $path = 'assets/foto_profil/default.jpg';
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        <img src="<?php echo $base64?>" width="150" height="150"/> */
+        // $paper_size = 'A4';
+        // $orientation = 'portrait';
+        // $html = $this->output->get_output();
+        // $this->dompdf->set_paper($paper_size, $orientation);
+        // $this->dompdf->load_html($html);
+        // $this->dompdf->render();
+        // $this->pdfbaru->stream("kuitansi"+$id+".pdf", array('Attachment' => 0));
+
+        //////baru
+        $data['pesanan'] = $this->rumah_model->pdf($id);
+        $this->pdfbaru->generate('kuitansi_pdf', $data);
 
 
+    }
 
+    ////USER??????
+    public function unggahktp($id)
+    {
+        // print_r($id);die;
+        $where = array('id_l' => $id);
+        $data['data'] = $this->rumah_model->edit_data($where,'login')->row_array();
+        // print_r($data);die;
+
+        $user['user'] = $this->db->get_where('login', ['username' => $this->session->userdata('csUsername')])->row_array();          
+           
+        $this->load->view('templates/header');
+        $this->load->view('templates/sidebar', $user);
+        $this->load->view('unggahKtp_view', $data);
+        $this->load->view('templates/footer');
+
+    }
+    public function unggahktp_do()
+    {   
+        
+        $id_l = $this->input->post('id_l');
+        //  if()
+         // jika ada gambar diubah
+         $userId = $this->session->userdata("csIdUser");  
+                    // print_r($userId);die;
+         $filenameKtp = "KTP_".$userId;
+         $edit_foto = $_FILES['foto_ktp']['name'];
+        //  print_r($edit_foto);die;
+         if($edit_foto){
+            $config['allowed_types']            = 'jpeg|jpg|png';
+            $config['overwrite']	            = TRUE;
+            $config['max_size']                 = '2048';
+            $config['upload_path']              = './assets/foto_ktp/';
+            $config['file_name'] 			    = $filenameKtp;
+
+            $this->load->library('upload', $config);
+                
+            if($this->upload->do_upload('foto_ktp')){
+                    $foto_ktp = $this->upload->data('file_name');
+                    /* $this->db->set('foto_profil', $gambar_baru); */
+                }else{
+                    echo $this->upload->display_errors();
+                }
+
+                $data = array(
+                    'foto_ktp'    => $foto_ktp
+                    );
+                    // print_r($data);die;
+                $where = array(
+                    'id_l'     => $id_l
+                    );
+            $this->rumah_model->update_data1($where, $data,'login');
+            $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Upload KTP telah berhasil, Silahkan Tunggu Verifikasi Admin</div>');
+                redirect('rumah/dashboard'); 
+            }else{
+               echo "<script>alert('File belum diunggah!');</script>";
+                echo "<script>document.location='./dashboard'</script>";
+
+            }   
+    }
+
+    public function dashboard_pemilik()
+    {   
+        $data['pesanan'] = $this->rumah_model->data_pesan();
+        // print_r($data);die;
+        $id = $this->session->userdata('csIdUser');
+        $queryJumlahPesananBerlangsung = "SELECT COUNT(id_pes)
+                                    FROM `pemesanan`
+                                    JOIN `tb_produk`
+                                    ON `tb_produk`.`id` = `pemesanan`.`id_rumah`
+                                    JOIN `login`
+                                    ON `login`.`id_l` = `pemesanan`.`id_user`
+                                    WHERE `tb_produk`.`user_id` =  '$id'
+                                    AND `pemesanan`.`sewa_selesai` =  'FALSE'";
+        $berlangsung = $this->db->query($queryJumlahPesananBerlangsung)->result_array();
+        // print_r($berlangsung['0']['COUNT(id_pes)']);die;
+        $data['jml1'] = $berlangsung['0']['COUNT(id_pes)'];
+        // print_r($jmlBerl);die;
+        $user['user'] = $this->db->get_where('login', ['username' => $this->session->userdata('csUsername')])->row_array();          
+           
+        $this->load->view('templates/header');
+        $this->load->view('templates/sidebar', $user);
+        $this->load->view('dashboard_pemilik', $data);
+        $this->load->view('templates/footer');
     }
 }
 ?>
