@@ -198,6 +198,20 @@ class rumah_model extends CI_Model {
          return $query->result(); 
      }
 
+     public function data_pesan_berlangsung(){
+        /*  return $this->db->get_where($table,$where); */
+         $id = $this->session->userdata['csIdUser'];
+         $this->db->select('
+             login.*, pemesanan.*, tb_produk.*, pemesanan.status as status_p, tb_produk.status as status_r');
+         $this->db->from('pemesanan');
+         $this->db->join('login', 'pemesanan.id_user = login.id_l');
+         $this->db->join('tb_produk', 'pemesanan.id_rumah = tb_produk.id');
+         $this->db->where('pemesanan.id_user', $id);   
+         $this->db->where('pemesanan.sewa_selesai', 'FALSE');   
+         $query = $this->db->get();
+         return $query->result(); 
+     }
+
     //pencari
     public function tambah_pesan($data){
 

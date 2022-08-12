@@ -31,7 +31,8 @@
             <?php
             $no =1;
             // print_r($pesanan);die;
-            foreach ($pesanan as $pes):?>
+            foreach ($pesanan as $pes):
+                if($pes->sewa_selesai == "TRUE") { ?>
             <tr>
                 <td><?php echo $no++ ?></td>
                 <td><?php echo $pes->nama_l; ?></td>
@@ -53,7 +54,7 @@
             </td>
             </td>
             </tr>
-            <?php endforeach; ?>
+            <?php } endforeach; ?>
         </table>
 
     <!-- Modal -->

@@ -1120,5 +1120,19 @@ class Rumah extends CI_Controller {
         $this->load->view('dashboard_pemilik', $data);
         $this->load->view('templates/footer');
     }
+
+    ///////
+    /////// Menu masa tenggang Pencari ///////
+    public function sewa_berlangsung()
+    {
+        $data['pesanan2'] = $this->rumah_model->data_pesan2();
+        $data['pesanan'] = $this->rumah_model->data_pesan_berlangsung();
+        $user['user'] = $this->db->get_where('login', ['username' => $this->session->userdata('csUsername')])->row_array();
+    //    print_r($data);die;
+        $this->load->view('templates/header', $user);
+        $this->load->view('templates/sidebar', $user);
+        $this->load->view('sewa_berlangsung', $data);
+        $this->load->view('templates/footer');
+    }
 }
 ?>

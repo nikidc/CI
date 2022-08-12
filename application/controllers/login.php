@@ -45,7 +45,7 @@ class Login extends CI_Controller {
 				$this->session->set_userdata($sessionData);
 
 				if($hasil['role_l'] == 'pemilik'){
-					redirect('rumah/rumah');
+					redirect('rumah/dashboard_pemilik');
 				} elseif($hasil['role_l'] == 'admin'){
 					redirect('rumah/data_member');
 				}else{
