@@ -1,8 +1,17 @@
-
-<div class="content-wrapper row">
-    <h4>
-        Konfirmasi Pesanan
-      </h4>
+<title>Konfirmasi Pemesanan</title>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        KONFIRMASI PESANAN
+        <small>Konfirmasikan Pesanan</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="<?php echo base_url(); ?>rumah/tampil_pesanan">Daftar Pesanan</a></li>
+        <li class="active">Konfirmasi Pesanan</li>
+      </ol>
+    </section>
     <section class="content">
         <!-- Query Percobaan -->
         <?php 
@@ -24,16 +33,18 @@
                  
         <?php 
         $no=1;
+        /* print_r($pesanan);
+            die; */
         foreach($pesanan as $pes) : 
-            /* print_r($pesanan);
-            die; */?>
+            ?>
 
         <form action="<?php echo base_url().'rumah/konfirmasi_p'; ?>"
-        method="post">
+            method="post">
     <div class="form-group row">
         <label class="col-sm-2">ID</label>
         <div class="col-sm-8">
         <input type="text" name="id_pes" class="form-control" value="<?php echo $pes['id_pes']?>"readonly>
+        <input type="hidden" name="id_rumah" class="form-control" value="<?php echo $pes['id_rumah']?>"readonly>
         </div>
     </div>
 
@@ -43,9 +54,7 @@
             
             <input type="text" name="nama" class="form-control" value="<?php echo $pes['nama_l']?>" readonly>
             <!-- <php echo form_error('nama','<small class="text-danger" pl-3>','</small>'); ?> -->
-        </div>
-        
-        
+        </div>    
     </div>
 
     <div class="form-group row">
@@ -70,9 +79,16 @@
     </div>
 
     <div class="form-group row">
-        <label class="col-sm-2">Durasi</label>
+        <label class="col-sm-2">Durasi Sewa  (bulan)</label>
         <div class="col-sm-8">
             <input type="text" name="durasi" class="form-control" value="<?php echo $pes['durasi']." Bulan"?>"readonly>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2">Biaya Total</label>
+        <div class="col-sm-8">
+            <input type="text" name="biaya" class="form-control" value="<?php echo number_format($pes['biaya']*$pes['durasi'])?>"readonly>
         </div>
     </div>
 
@@ -81,6 +97,18 @@
         <div class="col-sm-8">
             <input type="text" name="waktu_pesan" class="form-control" value="<?php echo $pes['waktu_pesan']?>"readonly>
         </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2">Waktu Terima kunci</label>
+        <div class="form-group col-sm-8">
+            <input type="time" name="tgl_terima_kunci" id="tgl_terima_kunci" class="form-control">
+            <p>waktu tertera pada tanggal <?php echo $pes['tgl_mulai']; ?></p>
+          <!-- <select name="waktu_terima_kunci" id="waktu_terima_kunci" class="form-control">
+            <option value="pencari">Pencari Rumah</option>
+            <option value="pemilik">Pemilik Rumah</option>
+          </select> -->
+      </div>
     </div>
      
     <div class="form-group row">
@@ -94,6 +122,18 @@
             <label class="custom-control-label" for="status_p">Ditolak</label>
         </div>
     </div>
+
+    <!-- <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Ubah Status Rumah</label>
+        <div class="col-sm-2">
+            <input type="radio" id="status_r" name="status_r" value="terisi" class="custom-control-input">
+            <label class="custom-control-label" for="status_r">Terisi</label>
+        </div>
+        <div class="col-sm-2">
+            <input type="radio" id="status_r" name="status_r" value="tersedia" class="custom-control-input">
+            <label class="custom-control-label" for="status_r">Tersedia</label>
+        </div>
+    </div> -->
     <!-- <div class="form-group row">
         <label class="col-sm-2">Fasilitas</label>
         <div class="col-sm-8">

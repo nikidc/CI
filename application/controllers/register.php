@@ -14,9 +14,9 @@ class Register extends CI_Controller {
 
     public function proses()
 	{
-		$this->form_validation->set_rules('username', 'username','trim|required|min_length[1]|max_length[30]|is_unique[login.username]', 
+		$this->form_validation->set_rules('username', 'username','alpha_numeric|required|min_length[4]|max_length[12]|is_unique[login.username]', 
 											['required' => 'Username wajib diisi']);
-		$this->form_validation->set_rules('password', 'password','trim|required|min_length[3]|max_length[30]',
+		$this->form_validation->set_rules('password', 'password','trim|alpha_numeric|required|min_length[4]|max_length[30]',
 											['required' => 'Password wajib diisi']);
 		$this->form_validation->set_rules('nama_l', 'nama_l','trim|required|min_length[1]|max_length[30]',
 											['required' => 'Nama wajib diisi']);

@@ -1,6 +1,6 @@
 <title>Setting</title>
 <div class="content-wrapper">
-<section class="content-header">
+  <section class="content-header">
       <h1>
         Profil
         <small>Detail Profil</small>
@@ -10,6 +10,7 @@
         <li><a href="<?php echo base_url(); ?>rumah/index">Home</a></li>
         <li class="active">Profil</li>
       </ol>
+  </section>    
       <!-- <div class="navbar-form">
             <?php echo form_open('rumah/search1') ?>
             <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Search">
@@ -17,7 +18,8 @@
             <?php echo form_close() ?>
            </div> -->
      <br>
- <div class="container" >
+     
+ <div class="container">
          
     <div class="row">
     <h3><center>PROFIL USER</center></h3>
@@ -112,10 +114,32 @@
                         <div class="col-sm-9">
                           <input type="file" id ="foto_profil" name="foto_profil" class="form-control" accept="image/jpeg, image/png, image/jpg">
                         </div>
-                      </div>
+                      </div>                     
                     </div>
                   </div>
-
+                  <div class="form-group row">
+                    <label for="titik_lokasi" class="col-sm-2 col-form-label">Titik lokasi</label>
+                    <div class="col-sm-10">
+                      <div id="map" style="width: 600px; height: 400px;"></div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <!-- <label for="latitude" class="col-sm-2 col-form-label">Latitude</label> -->
+                    <div class="col-sm-4">
+                      <input type="hidden" class="form-control" id="latitudeU" name="latitudeU"
+                      value = "<?php echo $user['latitudeU'] ?>" readonly>
+                      <?php echo form_error('latitude','<small class="text-danger">','</small>'); ?>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <!-- <label for="longitude" class="col-sm-2 col-form-label">Longitude</label> -->
+                    <div class="col-sm-4">
+                      <input type="hidden" class="form-control" id="longitudeU" name="longitudeU"
+                      value = "<?php echo $user['longitudeU'] ?>" readonly>
+                      <?php echo form_error('longitude','<small class="text-danger">','</small>'); ?>
+                    </div>
+                  </div>
+                  
                   <div class="form-group row justify-content-end">
                     <div class="col-lg-8">
                       <button type="submit" class="btn btn-primary">Edit</button>
@@ -128,9 +152,6 @@
       </div>
     </div>
     
-
-
-    </section>
     <!-- section end-->
     <!-- Modal -->
 
@@ -175,3 +196,4 @@
     <!-- Close mOdal -->
 
 </div>
+

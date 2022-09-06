@@ -1,4 +1,5 @@
 <!-- Content Wrapper. Contains page content -->
+<title>Pemesanan</title>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -18,6 +19,8 @@
 
       <!-- Default box -->
       <div class="box">
+        <div class="alert alert-danger print-error-msg" style="display:none">
+              </div>
         <div class="box-header with-border">
           <h3 class="box-title">FORM PESANAN</h3>
 
@@ -48,10 +51,10 @@
         </div>
         <div class="box-body">
             <div class="box-text col">
-                <label>Biaya</label>
+                <label>Biaya</label> (bulan)
             </div>
             <div class="box-text col">
-                <?php echo $detail->biaya; ?>
+                Rp<?php echo number_format($detail->biaya); ?>
             </div>            
         </div>
         <div class="box-body">
@@ -63,25 +66,23 @@
             </div> 
         </div>
         <div class="box-body">
-        <?php echo form_open_multipart('rumah/tambah_pesan'); ?>
+            
+        
             <div class="form-group">
 
                 <label >TANGGAL MULAI</label>
-                <input type="hidden" name="id_rumah" class="form-control" value="<?php echo $detail->id?>">
-                <input type="hidden" name="id_user" class="form-control" value="<?php echo $user['id_l']?>">
+                <input type="hidden" id ="id_rumah" name="id_rumah" class="form-control" value="<?php echo $detail->id?>">
+                <input type="hidden" id="id_user" name="id_user" class="form-control" value="<?php echo $user['id_l']?>">
                 <input type="date" id="tgl_mulai" name="tgl_mulai" class="form-control">
                 <?php echo form_error('tgl_mulai','<small class="text-danger">','</small>'); ?>
             </div>
             <div class="form-group">
-                <label >Durasi </label>(bulan)
-                <input type="number" id="durasi" name="durasi" class="form-control">
+                <label >Durasi Sewa</label>(bulan)
+                <input type="number" id="durasi" name="durasi" class="form-control" maxlength="2">
+                <?php echo form_error('durasi','<small class="text-danger">','</small>'); ?>
             </div>
-            <!-- <div class="form-group">
-                <label >Upload Bukti Pembayaran</label>
-                <input type="file" id ="foto_bukti" name="foto_bukti" class="form-control" accept="image/jpeg, image/png, image/jpg">
-            </div> -->
-            <button type="reset" class="btn btn-danger" value="Reset">Reset</button>
-            <button type="submit" class="btn btn-primary" onclick="tambahpesan();">Simpan</button>
+            <button class="btn btn-danger" value="Reset">Reset</button>
+            <button class="btn btn-primary btn-submit">Simpan</button>
         </div>
         <!-- /.box-body -->
         <!-- <div class="box-footer">

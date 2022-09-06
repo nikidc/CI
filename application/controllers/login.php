@@ -20,14 +20,14 @@ class Login extends CI_Controller {
 		$role    	= $this->session->userdata("csRole");
 		if (!empty($username) && !empty($role)) {
 			redirect("rumah/dashboard", "refresh");
-		} else {
+		}else {
 			$this->load->view("login");
 		}
 	}
 
 	public function login()
 	{
-		$this->form_validation->set_rules('txt_username', 'Username', 'trim|required');
+		$this->form_validation->set_rules('txt_username', 'Username', 'trim|alpha_numeric|required');
 		$this->form_validation->set_rules('txt_password', 'Password', 'trim|required');
 		if ($this->form_validation->run() == FALSE) {
 			echo "<script>document.location('./')</script>";
@@ -45,8 +45,10 @@ class Login extends CI_Controller {
 				$this->session->set_userdata($sessionData);
 
 				if($hasil['role_l'] == 'pemilik'){
-					redirect('rumah/rumah');
-				} else{
+					redirect('rumah/dashboard_pemilik');
+				} elseif($hasil['role_l'] == 'admin'){
+					redirect('rumah/data_member');
+				}else{
 					$this->session_check();
 				}
 				
