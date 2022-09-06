@@ -96,7 +96,7 @@
                 <?php
                 $id = $this->session->userdata('csIdUser');
                 $tgl = date("Y-m-d");
-                    $periksa=$this->db->query("SELECT `nama_l`, DATEDIFF(`tgl_akhir`,'$tgl') AS interval_tgl 
+                    $periksa=$this->db->query("SELECT `nama_l`, DATEDIFF(`tgl_akhir`,'$tgl') AS interval_tgl , `id_pes`
                     FROM `pemesanan` 
                     INNER JOIN `login` 
                     ON `login`.`id_l`= `pemesanan`.`id_user` 
@@ -105,20 +105,21 @@
                     WHERE `pemesanan`.`sewa_selesai`='FALSE'
                     AND `tb_produk`.`user_id` = '$id'")->result_array();
                     // print_r($periksa[0]['nama_l']);die;
-
+                    
                     foreach($periksa as $pes){
                         // print_r($pes);die;
                         $nama = $pes['nama_l'];
+                        $nomor = $pes['id_pes'];
                         if($pes['interval_tgl']==1){ 
-                            echo "<div style='padding:5px' style='width:50px' ><span class='glyphicon glyphicon-info-sign'></span> Member <a style='color:red'>" .$nama."</a>, Besok adalah Batas akhir sewa </div>"; 
+                            echo "<div style='padding:5px' style='width:50px' ><span class='glyphicon glyphicon-info-sign'></span> Member <a style='color:red'>" .$nama."</a> dengan ID = ".$nomor.", Besok adalah Batas akhir sewa </div>"; 
                         } elseif ($pes['interval_tgl']==2) {
-                             echo "<div style='padding:5px' style='width:50px' ><span class='glyphicon glyphicon-info-sign'></span> Member <a style='color:red'>" .$nama."</a> Batas akhir sewa tinggal 2 hari </div>"; 
+                             echo "<div style='padding:5px' style='width:50px' ><span class='glyphicon glyphicon-info-sign'></span> Member <a style='color:red'>" .$nama."</a> dengan ID = ".$nomor.", Batas akhir sewa tinggal 2 hari </div>"; 
                         } elseif ($pes['interval_tgl']==3) {
-                             echo "<div style='padding:5px' style='width:50px' ><span class='glyphicon glyphicon-info-sign'></span> Member <a style='color:red'>" .$nama."</a> Batas akhir sewa tinggal 3 hari </div>"; 
+                             echo "<div style='padding:5px' style='width:50px' ><span class='glyphicon glyphicon-info-sign'></span> Member <a style='color:red'>" .$nama."</a> dengan ID = ".$nomor.", Batas akhir sewa tinggal 3 hari </div>"; 
                         } elseif ($pes['interval_tgl']==0) {
-                             echo "<div style='padding:5px' style='width:50px' ><span class='glyphicon glyphicon-info-sign'></span> Member <a style='color:red'>" .$nama."</a> Hari ini adalah batas akhir sewa </div>"; 
+                             echo "<div style='padding:5px' style='width:50px' ><span class='glyphicon glyphicon-info-sign'></span> Member <a style='color:red'>" .$nama."</a> dengan ID = ".$nomor.", Hari ini adalah batas akhir sewa </div>"; 
                         } elseif ($pes['interval_tgl']<0) {
-                             echo "<div style='padding:5px' style='width:50px' ><span class='glyphicon glyphicon-info-sign'></span> Member <a style='color:red'>" .$nama."</a> Telah melewati batas akhir sewa </div>"; 
+                             echo "<div style='padding:5px' style='width:50px' ><span class='glyphicon glyphicon-info-sign'></span> Member <a style='color:red'>" .$nama."</a> dengan ID = ".$nomor.", Telah melewati batas akhir sewa </div>"; 
                         } else {
                             echo "";
                         }
@@ -131,6 +132,7 @@
     <label >Daftar Batas Akhir Sewa</label>
             <tr>
                 <th>No</th>
+                <th>ID</th>
                 <th>Nama Pemesan</th>
                 <th>No HP</th>
                 <th>Nama Rumah</th>
@@ -143,9 +145,11 @@
              <!-- Query Rumah -->
             <?php 
             $no =1;
-            foreach ($pesanan as $pes):?>
+            foreach ($pesanan as $pes):
+            if($pes->sewa_selesai == "FALSE"){?>
             <tr>
                 <td><?php echo $no++ ?></td>
+                <td><?php echo $pes->id_pes; ?></td>
                 <td><?php echo $pes->nama_l; ?></td>
                 <td><?php echo $pes->no_telp; ?></td>
                 <td><?php echo $pes->nama; ?></td>
@@ -156,10 +160,10 @@
                     <?php echo anchor('rumah/hapus/'.$pes->id_pes,
                      '<div class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></div>') ?>
                     </td> -->
-                <td><?php echo anchor('rumah/tampilan_konfirmasi/'.$pes->id_pes,'<div class="btn btn-primary btn-sm"><i class="fa fa-check"></i></div>') ?>
+                <td><?php echo anchor('rumah/konfirmasi_selesai/'.$pes->id_pes,'<div class="btn btn-primary btn-sm"><i class="fa fa-check"></i></div>') ?>
             </td>
             </tr>
-            <?php endforeach; ?>
+            <?php } endforeach; ?>
         </table>
 
 </div>
