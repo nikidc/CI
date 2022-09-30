@@ -243,14 +243,13 @@
 <!-- Multi image -->
 <script src="<?php echo base_url() ?>assets/plugins/multi-image-uploader-bootstrap/jquery.imagesloader-1.0.1.js"></script>
 <!-- Data Tables -->
-<!-- ini lu udah manggil.. btw klo comment mau cepet pencet ctrl + / -->
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/dataTables/css/dataTables.bootstrap4.min.css" type="text/css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 <!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/plugins/dataTables/css/jquery.dataTables.min.css'"> -->
 <script type="text/javascript" src="<?php echo base_url() ?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>assets/plugins/dataTables/dataTables.min.js"></script>
-<!-- ini bukan ya? -->
+
 <!-- Datatable CSS -->
 <!-- <link href='//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' rel='stylesheet' type='text/css'> -->
 <!-- Datatable JS -->
@@ -259,7 +258,7 @@
 <!-- leaflet -->
 <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
 <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script> -->
-<!-- itu benerin nanti.. rapihin maksudnya klo udah ada diatas pake yg atas aja.. cukup pake 2 itu aja .. ini maksudnya 2 yang mana pur?-->
+
 <script type="text/javascript">
   $(function(){
 // ini.. jd biar gk bnyak script lu nya.. sama bedain ya mana yg lu mau jalanin langsung sama yg bikin method function dlu di bawah baru dipanggil
@@ -269,41 +268,9 @@
 
 <script type="text/javascript">
 
-  //kriteria jarak
-  // ini functionnya salah.. function kriterai dari db itu harus stlh perhitungan maut di filter selesai
-    // pindahin aja ya?
-  // klo penempatan iya.. tpi ttp harus diubah karna gbsa kaya gtu
-    /* function crit(AvIndex, AvValue){
-      // ini caranya salah
-      // dalem kurungnya salah.. bukan karna namanya ya.. tpi lu naro itu berarti lu harus manggil di function sblomnya dengan ngirim data
-      // gua langsung contohin sama manggil datanya deh ya biar lu paham
-      var arrRange = [];
-
-      var range = calcCrow(latitudeU, longitudeU, AvValue.latitude, AvValue.longitude).toFixed(1);
-      console.log("range: " + range);
-
-      if(range <= 0.5){
-        var B2 = 5;
-      }else if(range > 0.5 && range <= 1 ){
-        B2 = 4;
-      }else if(range > 1 && range <= 1.5){
-        B2 = 3;
-      }else if(range > 1.5 && range <= 2){
-        B2 = 2;
-      }else{
-        B2 = 1;
-      }
-      arrRange.push(B2);
-    } */
-  
-
-
-    // sama script ini
-  // script ini buat lu bikin method
-  // berarti gw tinggal ubah sesuai bobot yang gw, dll ya? iyaa tpi kan yg gua kasih itu cma perhitungan filternya blom ke data penyedia rumah
-  // itu cba lu selidiki dlu deh kenapa onclick fungctionnya gk kepanggil..oke
+  /////////                     M A U T                     / /////////
   function searchByCriteria() {
-    // lu declare valuenya dlu deh.. gitu nik.. semuanya ya? tambahin gitu nik.. oiya klo bsa nanti lu ubah" yaa.. takutnya klo mirip kaya gua ketaun abis kita berdua wkwk
+    
     var biaya = ($("#biaya").val() - 1)/(5 - 1);
     var jarak = ($("#jarak").val() - 1)/(5 - 1);
     var luas = ($("#luas").val() - 1)/(5 - 1);
@@ -318,9 +285,6 @@
           console.log(nilai);
           bobotHitung(nilai);
           
-            //plugin datatablenya gk ada? .. kemaren gw download" yang mana ya.. itu gua kasih perhitungan mautnya kurleb kaya gitu nanti tinggal lu terapin berdasarkan data db
-            // sblomnya lu cari tau dlu kenapa functionnya gk kepanggil.. gua udah gk bsa terlalu m,ikir soalnya nih wkwkwk.. oke pur.. itu lu pahamin dlu aja
-            // klo buat berdsrkan data db itu nanti nilai 1-5 nya lu buat di model tpi dipanggil dlu difunction footer pake ajax
   }
   function bobotHitung(kriteria) {
         var arrBobot = [];
@@ -372,24 +336,11 @@
         console.log(rounded_result);
 
         kriteriaBiaya(rounded_result);
-        //ini cara kirim nya ya namaFunctionyangterima(variabel yang dikirim);? iya klo mau kirim data
-        // hasilMatriksMAUT("", rounded_result);
-        //masing" pake func lain"?iya
+        
     }
 
     function kriteriaBiaya(maut_filter) {
-      // console.log("kriteriaBiaya: " + maut_filter);
-      // nih cara function ada isinya.. harus ada yg dikirim
-      // nah klo penggunaan avindex, avvalue itu buat perulangan $.each
-      // each itu sama aja kaya foreach cma bedanya each itu buat jquery nik
-      // gtu nik klo mau ada isinya di dalem kurung.. penempatan function jga jgn sampe salah.. klo di atas berarti itu yg dipanggil dluan
-      // sampe sini paham gk?
-      //itu kriteriaJarak diambil dari function hasilMatriks as maut_filter ya? atau gimana, kok jadi maut_filter?
-      // bkan gtu.. func kriteriaJarak dipanggil atau dikirimin sebuah nilai dari function yg ngirimnya
-      // kenapa jdi maut_filter.. itu cma penamaan ajaa.. sama kaya lu ngasih identitas gtu.. kaya klo di dalem func kan var abc = .. nah abc itu cma penamaan aja
-      // dikirim selalu dari atasnya atau ga?
-      // klo mau ngirim harus dari atas ke bawah
-      // gbsa dri bawah ke atas.. sbnrnya mah bsa aja cma kan klo dri bawah ke atas jdnya ngulang terus.. karna dri atas turun lg ke bawah
+     
       $.ajax({
         type: "POST",
             url: "<?php echo base_url() ?>rumah/crit_biaya",
@@ -398,35 +349,21 @@
                 type: typeSrc
                 tyg barusan gua block
             }, */
-            // lu ada data yg mau dikirim ke controller gk?
-            // controller nya nanti isi apa aja ya? apa ambil data aja?
-            // nah nnti gua kasih tau
-            // skrg gua tanya dlu ada data yg lu mau kirim gk dri sini? kaya misal apa gtu yg dijadiin di WHERE nanti
-            // id kah?
-            // harusnya sih bukan ya
-            // yauda gua anggep gk ada dlu deh ya
+            
             success: function(response) {
                 console.log(response);
                 // for (var i = 0; i < response[0]."row_biaya"; index++) {
                 //   var j = i+1;
                 //   var biaya = response[j]."B1";
                 //   console.log(biaya);
-                //   // baru isinya apa yg lu mau ulang
-                //   // nanti klo mau ambil nilainya berarti gini
+                //  
                 // }
                 // priceCriteria(matrix1, response);
                 // console.log(c);
-                // halaman awal lu apa? atau nama folder ini apa?
-                // datanya udah masuk
-                //  nanti pas kriteria yg laen kirim datanya func yg laen
-                //maskudnya?gitu terus // lanjut ke function yang manggil kriteria jarak yaa?iya
+               
+             
                 kriteriaLuas(maut_filter, response);
-                // coba cari itu kenapa gmau kepanggil lgi
-                // klo yg for kurleb kaya gtu.. nnti lu coba" dlu aja.. gua udah gk kluat wkwkw
-                //oke pur thankyou, berarti gw buat2 function tiap kriteria sama for yang di kriteria jarak ya? iyaa caranya ikutin yg biaya aja.. nnti for di biaya lu komen aja
-                //controller juga masing2 ya?iya kan beda" manggil func model nya,,oke siap pur thankyou..iyaa sanss.. bsok klo bingung tanya lg aja.. klo bisa mah jgn malem wkwkw takut kaya gini doang
-                // oke pur kwkw
-                // soalnya gua lg gtau nih gk kuat begadang terus semenjak yg waktu itu tidur jam 4 pagiu wkwkwkw.. butuh tidur agak lamaan kali pu.. kayanya, kopi aja udah gk mempan skrg wkwkw..sama kek gw kwkw yauda gua dluan yaa.. gua end oke
+                
             },
             error: function(response) {
                 console.log(response);
@@ -438,11 +375,6 @@
 
     function kriteriaLuas(maut_filter, biaya) {
       
-      // kaya gtu terus
-      // ikutin kaya tadi
-      // modelnya pisah ya jgn nyatu kaya tadi,, pisah apanya pur?function atuh
-      // jdi yg luas ya sendiri functionnya
-      // bntr gua kasih tau cara yg for
       $.ajax({
         type: "POST",
             url: "<?php echo base_url() ?>rumah/crit_luas",
@@ -556,6 +488,7 @@
 
       // console.log(arrFasilitas1);
       // console.log(Math.max(...arrFasilitas1));
+
       //NORMALISASI KRITERIA
       var normalBiaya = [];
       var normalJarak = [];
@@ -581,7 +514,6 @@
           var bulatJ = normalJarak[i];
           var bulatL = normalLuas[i];
           var bulatF = normalFasilitas[i];
-          // var 
           var nilai = {
             biaya:      roundNumber(bulatB, 2),
             jarak:      roundNumber(bulatJ, 2),
@@ -623,7 +555,7 @@
     function matriksKriteriaR(maut_filter, arrBobotR, hasilNormal, rumah){
       console.log(arrBobotR);
       var hasilR = [];
-      // var j = 0;
+
         for(var i = 0;i < hasilNormal.length; i++){
               
               var matriks1 = arrBobotR[0].w1 * hasilNormal[i].biaya;
@@ -661,26 +593,9 @@
           }
           // console.log(akhir);
           arrHasilAkhir.push(akhir);
-          // ini kan ngpush nilai akhir klo hasilnya ada yg sama
-          // bukan mendekati ya? berarti kriteria yang diinput harus sama persis?
-          // ya  kan itu lu pakenya == klo mau >= karna kan gk mungkin <=
-          //  atau lu cari" lg klo mendekati gmna scriptnya
-          // cari nya jquery atau php nya? jquery kan ini adanya di jquery
-          // lu final nya pake yang == atau ada lagi? smentara ==
-          // oke deh pur gw nyari" itu. oh iya kalo misal ada yang sesuai nampilinnya gimana?
-          // pake ajax.. bikin kaya viewModal klo ada cma nnti di modelnya pas where pakenya IN bukan =
-          // klo IN lu harus bikin gmna caranya tuh id jdi 'id1, id2, ..'
-          // belum kebayang
-          // nnti deh gua kasih querynya
-          // modal nya bikin di dashboard? iya jdi bgtu klik cari atau simpan yg modal filter lu close trus munculin modal tampil datanya
-          // button nya pake jquery juga? yang onclik gitu? yg ini kan udah ada onclick
-          //  tinggal terusin aja pake function
-          // panggil function yg buat nampilinnya sama kirim data array akhirnya
-          // biar modalnya nongol? iya
+        
         }
-        // ini udah bener.. kan klo gk ada yg sama ya dia gk ngepush apa"
-        // kalo yang db sih harusnya dah bener
-        // maksud gua ini udah bener code nya.. karna nilainya gk ada yg sma makanya arrHasilAkhir itu kosong
+       
       }
       console.log("rumah :"+ arrHasilAkhir);
       if(arrHasilAkhir.length == 1){
@@ -695,8 +610,7 @@
         var rekomendasi = arrRekomen.join();
       }
       console.log(rekomendasi);
-      tampilData(arrHasilAkhir, rumah, rekomendasi); //oper terus bikin function baru? iya bener
-      // kek gini bukan pur, bentar
+      tampilData(arrHasilAkhir, rumah, rekomendasi); 
   }
 
   function tampilData(hasilAkhir, rumah, rekomendasi){
@@ -773,8 +687,7 @@
     });
   }
     //hitung jarak
-// itung jarak sama rounded taro paling bawha nik.. pindahin dlu dah
-// disini bukan pur? yauda gapapa
+
   function calcCrow(lat1, lon1, lat2, lon2){
     var R = 6371 //
     var dLat = toRad(lat2 - lat1);
@@ -869,10 +782,7 @@
               form_data.append(file, $(id)[0].files[0]);
             }
           }
-         /*  for (var value of form_data.values()) {
-            console.log(value);
-            
-          } */
+      
           $.ajax({
             type: "POST",
             url: "<?php echo base_url(); ?>rumah/tambah_rumah1",
@@ -896,12 +806,9 @@
           });
         }
   }
-  //////////////////////////////////
-  //////////////////////////////////
+  
   //coba
 
-
-  ////////////////////////////////
 </script>
 
 <!-- Ini view footer-->
@@ -917,9 +824,7 @@
     });
   })
 </script>
-<!-- tapi ini ada empty, maksud gw ajax nya mirip atau ga? iya klol ajax mah caranya sama smua
-tinggal pas sukses lu mau apain itu datanya gtu doang.. sama tipe datanya apa TEXT atau JSON
-berarti ini gw cari yang cara nyamain hasil akhir, terus baru tampilan? iya,, ke pur gw cari sama coba bikin buat nampilin, nanti gw tanya kalo mentok..oke nnti wa aja klo gua bales brarti gua msh ngerjain wkwk...  gua jg lg selesain yg penting sama mau bikin pertanyaan..oek siap pur.. oke gua end ya -->
+
 <script>
   function showData(param) {
     $.ajax({
@@ -1446,12 +1351,7 @@ berarti ini gw cari yang cara nyamain hasil akhir, terus baru tampilan? iya,, ke
           });
         // }
   }
-  //////////////////////////////////
-  //////////////////////////////////
-  //coba
 
-
-  ////////////////////////////////
 </script>
 
 
@@ -1598,13 +1498,7 @@ var peta4 = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}
   var marker = new L.marker(curLocation, {
     draggable: 'true', 
   });
-  //ini yg siapa?
-  //punya user/pencari
-  //nanti itu yg inputan lat sama lng nya hide aja.. itu webnya punya penyedia?
-  //iya
-  //buka yg pencarinya dah.. oiya next klo mau buka jgn di satu browser gtu.. harus pisah atau pake yg incognito
-
-  //mengambil coordinat saat marker didrag
+ 
   marker.on('dragend', function(e){
     var position = marker.getLatLng();
     marker.setLatLng(position, {
